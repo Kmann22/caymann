@@ -1,12 +1,13 @@
-gsap.to(".horizontal",{
-    x:"-100vw",
-    duration:2,
-    scrollTrigger:{
-        trigger:".horizontal-wrapper",
-        start:"top top",
-        end:"bottom top",
-        scrub:1,
-        markers:true,
-        pin:true,
-    }    
-})
+gsap.to(".horizontal", {
+    x: () => -(document.querySelector(".horizontal").offsetWidth - window.innerWidth),
+    ease: "none",
+    scrollTrigger: {
+        trigger: ".horizontal-wrapper",
+        start: "top top",
+        end: () => `+=${document.querySelector(".horizontal").offsetWidth - window.innerWidth}`,
+        scrub: true,
+        pin: true,
+        invalidateOnRefresh: true,
+        anticipatePin: 1
+    }
+});

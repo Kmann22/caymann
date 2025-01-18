@@ -12,11 +12,16 @@ body{
     height: 100%;
     width: 100%;
 }
-.horizontal{
+.horizontal-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.horizontal {
     display: flex;
-    flex-direction: row;
+    flex-wrap: nowrap;
+    width: fit-content;
     height: 100vh;
-    width: 200vw;
 }
 .page1,.page2,.page3,.page4,.page5,.page6,.page7{
     height: 100vh;
