@@ -61,7 +61,7 @@ body{
     background-color: #e74c3c;
 }
 .page3{
-    background-color: #3498db;
+    background-color:#000712;
 }
 .page4{
     background-color: #2ecc71;
@@ -78,7 +78,7 @@ body{
 
 @media (max-width: 600px) {
     .page1,.page2,.page7{
-        background-image: url('assets/images/background.png');
+        background-image: url('assets/images/background.webp');
         background-size: cover;
         background-position: center;    
         overflow: hidden;

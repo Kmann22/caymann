@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-gsap.from('.stars-string', {
+gsap.from('.stars-string, .page2 .title, .page2 .content, .black-moon', {
     opacity: 0,
     y: 30,
     duration: 2,
@@ -85,7 +85,7 @@ gsap.from('.stars-string', {
         trigger: '.page2',
         start: 'top 80%',
         end: 'center center',
-        scrub: 2,
-        
-    }
+        scrub: 2,        
+    },
+    stagger: 0.5,
 }); 
