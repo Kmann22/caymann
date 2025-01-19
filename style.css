@@ -412,3 +412,22 @@ body{
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
 }
+
+.audio-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#audioToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#audioToggle img {
+    width: 24px;
+    height: 24px;
+    filter: invert(1); /* If you want the icon to be white */
+}

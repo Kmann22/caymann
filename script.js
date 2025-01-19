@@ -231,3 +231,21 @@ words.forEach((word, index) => {
         }
     });
 });
+
+// Add this to your existing script.js
+const audioElement = document.getElementById('bgMusic');
+const audioToggle = document.getElementById('audioToggle');
+const audioIcon = document.getElementById('audioIcon');
+
+let isPlaying = false;
+
+audioToggle.addEventListener('click', () => {
+    if (isPlaying) {
+        audioElement.pause();
+        audioIcon.src = 'assets/images/play.webp';
+    } else {
+        audioElement.play();
+        audioIcon.src = 'assets/images/pause.webp';
+    }
+    isPlaying = !isPlaying;
+});
