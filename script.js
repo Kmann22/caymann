@@ -73,6 +73,54 @@ document.addEventListener('DOMContentLoaded', () => {
         "investor"
     ]);
     typingEffect.type();
+
+    const container = document.querySelector('.projects-container');
+    const leftArrow = document.querySelector('.left-arrow');
+    const rightArrow = document.querySelector('.right-arrow');
+    
+    // Calculate scroll distance based on card width + gap
+    const scrollDistance = 350;  // card width (320px) + gap (30px)
+    
+    const updateArrowVisibility = () => {
+        leftArrow.style.opacity = container.scrollLeft <= 0 ? '0.5' : '1';
+        rightArrow.style.opacity = 
+            container.scrollLeft >= container.scrollWidth - container.clientWidth - 10 
+            ? '0.5' 
+            : '1';
+    };
+
+    leftArrow.addEventListener('click', () => {
+        container.scrollBy({
+            left: -scrollDistance,
+            behavior: 'smooth'
+        });
+    });
+    
+    rightArrow.addEventListener('click', () => {
+        container.scrollBy({
+            left: scrollDistance,
+            behavior: 'smooth'
+        });
+    });
+
+    // Update arrow visibility on scroll and initial load
+    container.addEventListener('scroll', updateArrowVisibility);
+    updateArrowVisibility();
+
+    // Optional: Add keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            container.scrollBy({
+                left: -scrollDistance,
+                behavior: 'smooth'
+            });
+        } else if (e.key === 'ArrowRight') {
+            container.scrollBy({
+                left: scrollDistance,
+                behavior: 'smooth'
+            });
+        }
+    });
 });
 
 
@@ -145,11 +193,11 @@ gsap.to('.astronaut-star', {
     scrollTrigger: {
         trigger: '.page3',
         start: 'top center',
-        end: 'bottom center',
+        end: 'bottom top',
         scrub:2,
         // other ScrollTrigger options as needed
     },
     top: '-100%',
     ease: "power2.out",
-    duration:  12
+    duration:  30
 });
