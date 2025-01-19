@@ -66,11 +66,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize typing effect
     const typingEffect = new TypingEffect([
-        "tech enthusiast",
-        "developer",
-        "designer",
-        "entrepreneur",
-        "investor"
+        "a tech enthusiast!",
+        "a web developer!",
+        "a software developer!",
+        "a problem solver!",
+        "an app developer!",
+        "a full stack developer!",
+        "a data analyst!",
+        "an ML enthusiast!",
+        "a data visualizer!",
+        "a data scientist!",
+        "an NLP enthusiast!",
+
     ]);
     typingEffect.type();
 
@@ -181,7 +188,7 @@ navButton.addEventListener('click', () => {
     mobileNav.classList.toggle('active');
 });
 
-// Close menu when clicking a link
+// When clicking a nav link, make sure to remove both active classes
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navIcon.classList.remove('active');
@@ -191,9 +198,8 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 
 gsap.to('.astronaut-star', {
     scrollTrigger: {
-        trigger: '.page3',
-        start: 'top center',
-        end: 'bottom top',
+        trigger: '.horizontal-wrapper',
+        start: 'top top',
         scrub:2,
         // other ScrollTrigger options as needed
     },
@@ -248,4 +254,13 @@ audioToggle.addEventListener('click', () => {
         audioIcon.src = 'assets/images/pause.webp';
     }
     isPlaying = !isPlaying;
+});
+
+// Add this with your other GSAP animations
+gsap.from(".social-links .social-icon", {
+    x:1,
+    duration: 1,
+    stagger: 0.2,
+    repeat: -1,
+    yoyo: true,
 });

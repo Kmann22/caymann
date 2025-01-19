@@ -73,6 +73,14 @@ body{
 }
 
 @media (max-width: 600px) {
+    .astronaut-laptop{
+        position: absolute;
+        top: 13%;
+        left: 25%;
+        transform: translate(-50%, -50%);
+        width: 35%;
+        height: auto;
+    }
     .page1,.page2,.page7{
         background-image: url('assets/images/background.webp');
         background-size: cover;
@@ -111,6 +119,7 @@ body{
         width: 25%;
         height: auto;
         z-index: 2;
+        left: 40%;
         top: 100%;
     } 
     .black-moon{
@@ -143,7 +152,7 @@ body{
     }
     .content1,.content,.download{
         font-family: "Schoolbell", sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: #f4f4f4;
         text-align: center;
     }
