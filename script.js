@@ -295,7 +295,7 @@ gsap.to(".planet1", {
     ease: "power1.inOut"
 });
 
-gsap.to(".astronaut-boat", {
+gsap.to(".astronaut-boat, .astronaut-ukulele", {
     y: 15,
     x: 15,
     rotation: -5,
@@ -304,3 +304,76 @@ gsap.to(".astronaut-boat", {
     repeat: -1,
     ease: "power1.inOut"
 });
+
+// Project data array
+const projects = [
+    {
+        image: "assets/images/project-3d.webp",
+        title: "Real time 3D Audio Generation",
+        link: "#link1"
+    },
+    {
+        image: "assets/images/project-cancer.webp",
+        title: "Breast Cancer Detection",
+        link: "#link2"
+    },
+    {
+        image: "assets/images/project-hearingaid.webp",
+        title: "Gamified Auditory Training for Hearing Rehabilitation",
+        link: "#link3"
+    },
+    {
+        image: "assets/images/project-english.webp",
+        title: "Vocab",
+        link: "#link4"
+    },
+    {
+        image: "assets/images/project-chess.webp",
+        title: "Chess",
+        link: "#link5"
+    }
+];
+
+// Preload images
+const preloadImages = () => {
+    projects.forEach(project => {
+        const img = new Image();
+        img.src = project.image;
+    });
+};
+
+// Keep track of current project index
+let currentProjectIndex = 0;
+
+// Function to update project content
+function updateProject(index) {
+    const projectContent = document.querySelector('.page4 .content');
+    const project = projects[index];
+    
+    projectContent.innerHTML = `
+        <div class="project-card">
+            <img src="${project.image}" alt="Project Image" class="project-image">
+            <div class="project-info">
+                <p class="project-title">${project.title}</p>
+                <div class="project-links">
+                    <a href="${project.link}" class="project-link demo">Github Link</a>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Event listeners for navigation buttons
+document.querySelector('.prev-btn').addEventListener('click', () => {
+    currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+    updateProject(currentProjectIndex);
+});
+
+document.querySelector('.next-btn').addEventListener('click', () => {
+    currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+    updateProject(currentProjectIndex);
+});
+
+// Initialize first project and preload images
+preloadImages();
+updateProject(currentProjectIndex);
