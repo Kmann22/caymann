@@ -89,3 +89,42 @@ gsap.from('.stars-string, .page2 .title, .page2 .content, .black-moon', {
     },
     stagger: 0.5,
 }); 
+
+// Add rotation animation for the earth
+gsap.to('.earth', {
+    rotation: 360,
+    duration: 3,
+    ease: "none",
+    scrollTrigger: {
+        trigger: '.page2',
+        start: 'top 80%',
+        end: 'center center',
+        scrub: 2,
+    },
+}); 
+
+// Add floating animation for the astronaut-moon
+gsap.to('.astronaut-moon', {
+    y: 20,
+    duration: 2,
+    ease: "power1.inOut",
+    yoyo: true,
+    repeat: -1
+}); 
+
+const navButton = document.querySelector('.mobile-nav-button');
+const navIcon = document.querySelector('.nav-icon');
+const mobileNav = document.querySelector('.mobile-nav');
+
+navButton.addEventListener('click', () => {
+    navIcon.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+});
+
+// Close menu when clicking a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navIcon.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
+});
