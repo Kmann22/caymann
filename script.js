@@ -175,7 +175,7 @@ gsap.to(".black-moon", {
         trigger: '.page2',
         start: 'top bottom',
         end: 'bottom top',
-        scrub: 1
+        scrub: 2
     }
 });
 
@@ -263,4 +263,44 @@ gsap.from(".social-links .social-icon", {
     stagger: 0.2,
     repeat: -1,
     yoyo: true,
+});
+
+// Add opacity animation for astronaut-laptop
+gsap.from('.astronaut-laptop', {
+    opacity: 0,
+    duration: 2,
+    scrollTrigger: {
+        trigger: '.page3',
+        start: 'left center',
+        end: 'center center',
+        scrub: 2,
+        toggleActions: 'play none none reverse'
+    }
+});
+
+gsap.to(".astronaut-moonstar", {
+    rotation: 50, // Swing 5 degrees to each side
+    duration: 2,
+    ease: "Swing",
+    yoyo: true,
+    repeat: -1
+});
+// Add this to your JavaScript file
+gsap.to(".planet1", {
+    y: 20,
+    rotation: 5,
+    duration: 2,
+    yoyo: true,
+    repeat: -1,
+    ease: "power1.inOut"
+});
+
+gsap.to(".astronaut-boat", {
+    y: 15,
+    x: 15,
+    rotation: -5,
+    duration: 2.5,
+    yoyo: true,
+    repeat: -1,
+    ease: "power1.inOut"
 });
