@@ -201,3 +201,33 @@ gsap.to('.astronaut-star', {
     ease: "power2.out",
     duration:  30
 });
+
+// Words animation for page 5
+let words = gsap.utils.toArray('.word');
+words.forEach((word, index) => {
+    gsap.set(word, {
+        opacity: 0,
+        y: 50
+    });
+    
+    ScrollTrigger.create({
+        trigger: word,
+        start: "top 80%",
+        onEnter: () => {
+            gsap.to(word, {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                delay: index * 0.1 // Sequential animation
+            });
+        },
+        onLeaveBack: () => {
+            gsap.to(word, {
+                opacity: 0,
+                y: 50,
+                duration: 0.4
+            });
+        }
+    });
+});
