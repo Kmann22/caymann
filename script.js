@@ -112,6 +112,18 @@ gsap.to('.astronaut-moon', {
     repeat: -1
 }); 
 
+// Rotate black moon on scroll instead of continuously
+gsap.to(".black-moon", {
+    rotation: 360,
+    ease: "none",
+    scrollTrigger: {
+        trigger: '.page2',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+    }
+});
+
 const navButton = document.querySelector('.mobile-nav-button');
 const navIcon = document.querySelector('.nav-icon');
 const mobileNav = document.querySelector('.mobile-nav');
@@ -127,4 +139,17 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         navIcon.classList.remove('active');
         mobileNav.classList.remove('active');
     });
+});
+
+gsap.to('.astronaut-star', {
+    scrollTrigger: {
+        trigger: '.page3',
+        start: 'top center',
+        end: 'bottom center',
+        scrub:2,
+        // other ScrollTrigger options as needed
+    },
+    top: '-100%',
+    ease: "power2.out",
+    duration:  12
 });
