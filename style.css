@@ -168,8 +168,8 @@ body::-webkit-scrollbar {
 }
 
 
-/*Mobile*/
-@media (max-width: 575.98px) {
+/*Mobile Portrait*/
+@media (max-width: 575px) and (orientation: portrait) {
     .stars-string2{
         display: none;
     }
@@ -280,18 +280,143 @@ body::-webkit-scrollbar {
     } 
     .nav-btn:first-child {
         top: 50%;
-        left: 46.5%;  /* Position left button */
+        left: 52%;  /* Position left button */
     }
     .nav-btn:last-child {
         top:50%;
-        right: 10%;  /* Position right button */
+        right: 2%;  /* Position right button */
     }
 
 }
 
+/*Mobile Landscape*/
+@media (max-height: 575px) and (orientation: landscape) {
+    .astronaut-ukulele{
+        position: absolute;
+        top: 5%;
+        width: 50%;
+        height: auto;
+    }
+    .astronaut-laptop{
+        position: absolute;
+        top: 15%;
+        left: 25%;
+        transform: translate(-50%, -50%);
+        width: 30%;
+        height: auto;
+    }
+    /* .earth,.earth7{
+        position: absolute;
+        bottom: -50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%;
+        height: auto;
+    } */
+     
+    .earth,.earth7{
+        position: absolute;
+        bottom: -1%;
+        right: -50%;
+        transform: translateX(-50%);
+        width: 50%;
+        height: auto;
+    } 
+    .astronaut-boat{
+        position: absolute;
+        bottom: 1.7%;
+        left: 83%;
+        transform: translateX(-50%);
+        width: 30%;
+        height: auto;
+    }     
+    .astronaut-moon{
+        position: absolute;
+        top: 20%;
+        left: 15%;
+        transform: translateX(-50%);
+        width: 30%;
+        height: auto;   
+    }
+    .stars-string{
+        position: absolute;
+        top: 0%;
+        width: 100%;
+        height: auto;
+    }  
+    .astronaut-star{
+        position: absolute;
+        bottom: 0%;
+        width: 25%;
+        height: auto;
+        z-index: 2;
+        left: 40%;
+        top: 100%;
+    } 
+    .black-moon{
+        position: absolute;
+        bottom: -70%;
+        height: auto;
+        width: 10%;
+    }
+    .stones{
+        position: absolute;
+        bottom: 2%;
+        left: 25%;
+        transform: translateX(-50%);
+        width: 4%;
+        height: auto;
+    }
+    .projects-section {
+        width: 100%;
+        /* padding: 0 1rem; */
+    }
+
+    .projects-container {
+        width: 90%;
+        /* padding: 1w 0; */
+        /* gap: 15px; */
+    }
+
+    .project-card {
+        min-width: 260px; /* Smaller cards for mobile */
+        height: 300px;
+        padding: 1rem;
+    }
+
+    .project-image {
+        width: 100%;
+        height: 160px; /* Slightly smaller images for mobile */
+    }
+
+    .project-title {
+        font-size: 1.2rem; /* Smaller font size for mobile */
+    }
+    /* Ensure message4 container doesn't overflow */
+    .message4 {
+        width: 100%;
+        padding: 1rem;
+        overflow: hidden;
+    }
+
+    /* Adjust title spacing */
+    .projects-section .title {
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+    } 
+    .nav-btn:first-child {
+        top: 50%;
+        left: 52%;  /* Position left button */
+    }
+    .nav-btn:last-child {
+        top:50%;
+        right: 2%;  /* Position right button */
+    }
+
+}
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) and (max-width: 767.98px) {
+@media (min-width: 576px) and (max-width: 767.98px) and (orientation: portrait) {
 
 }
 
@@ -417,26 +542,9 @@ body::-webkit-scrollbar {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*No landscape requiredddddddddddddddddddddddddddddddd*/
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) and (max-width: 991.98px){
+@media (min-width: 768px) and (max-width: 991.98px) and (orientation: portrait) {
     
     .astronaut-ukulele{
         position: absolute;
