@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-gsap.from('.stars-string, .page2 .title, .page2 .content, .black-moon', {
+gsap.from('.stars-string,.stars-string2, .page2 .title, .page2 .content, .black-moon', {
     opacity: 0,
     y: 30,
     duration: 2,
