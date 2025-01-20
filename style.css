@@ -107,11 +107,14 @@ body::-webkit-scrollbar {
     text-align: center;
     gap: -1rem;
 }
-.content1,.content,.download{
+.content1,.content,.download,.content-landscape{
     font-family: "Schoolbell", sans-serif;
     font-size: 1.2rem;
     color: #f4f4f4;
     text-align: center;
+}
+.content-landscape{
+    display: none;
 }
 
 
@@ -291,29 +294,28 @@ body::-webkit-scrollbar {
 
 /*Mobile Landscape*/
 @media (max-height: 575px) and (orientation: landscape) {
+    .content-landscape{
+        display: block;
+    }
+    .page3 .content{
+        display: none;
+    }
     .astronaut-ukulele{
+        display: none;
         position: absolute;
         top: 5%;
-        width: 50%;
+        width: 25%;
         height: auto;
     }
     .astronaut-laptop{
+        /* display: none; */
         position: absolute;
         top: 15%;
         left: 25%;
         transform: translate(-50%, -50%);
-        width: 30%;
+        width: 8%;
         height: auto;
-    }
-    /* .earth,.earth7{
-        position: absolute;
-        bottom: -50%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 40%;
-        height: auto;
-    } */
-     
+    }     
     .earth,.earth7{
         position: absolute;
         bottom: -1%;
@@ -325,46 +327,59 @@ body::-webkit-scrollbar {
     .astronaut-boat{
         position: absolute;
         bottom: 1.7%;
-        left: 83%;
+        left: 75%;
         transform: translateX(-50%);
-        width: 30%;
+        width: 10%;
+        /* display: none; */
         height: auto;
     }     
     .astronaut-moon{
         position: absolute;
         top: 20%;
-        left: 15%;
-        transform: translateX(-50%);
+        left: 5%;
+        transform: translateX(0%);
         width: 30%;
         height: auto;   
+    }
+    
+    .stars-string2{
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        transform: rotate(-40deg);
+        width: 40%;
+        height: auto;
     }
     .stars-string{
         position: absolute;
         top: 0%;
-        width: 100%;
+        right: 0%;
+        rotate: -80deg;
+        width: 40%;
         height: auto;
     }  
     .astronaut-star{
         position: absolute;
         bottom: 0%;
-        width: 25%;
+        width: 8%;
         height: auto;
         z-index: 2;
-        left: 40%;
+        left: 47%;
         top: 100%;
     } 
     .black-moon{
         position: absolute;
-        bottom: -70%;
+        bottom: -40%;
         height: auto;
-        width: 10%;
+        width: 30%;
     }
     .stones{
+        /* display: none; */
         position: absolute;
-        bottom: 2%;
+        bottom: 1%;
         left: 25%;
         transform: translateX(-50%);
-        width: 4%;
+        width: 12%;
         height: auto;
     }
     .projects-section {
@@ -406,11 +421,11 @@ body::-webkit-scrollbar {
     } 
     .nav-btn:first-child {
         top: 50%;
-        left: 52%;  /* Position left button */
+        left: 60%;  /* Position left button */
     }
     .nav-btn:last-child {
         top:50%;
-        right: 2%;  /* Position right button */
+        right: 10%;  /* Position right button */
     }
 
 }
