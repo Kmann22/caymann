@@ -356,7 +356,7 @@ function updateProject(index) {
             <div class="project-info">
                 <p class="project-title">${project.title}</p>
                 <div class="project-links">
-                    <a href="${project.link}" class="project-link demo">Github Link</a>
+                    <a href="${project.link}" class="project-link demo">Source Code 🔗</a>
                 </div>
             </div>
         </div>
@@ -377,3 +377,33 @@ document.querySelector('.next-btn').addEventListener('click', () => {
 // Initialize first project and preload images
 preloadImages();
 updateProject(currentProjectIndex);
+gsap.to('.astronaut-ukulele', {
+    duration: 10,
+    // rotation: 360,
+    ease: "none",
+    repeat: -1,
+}); 
+gsap.to('.earth7', {
+    duration: 10,
+    rotation: 360,
+    ease: "none",
+    repeat: -1,
+}); 
+gsap.from('.page7 .astronaut-moonfish', {
+    y:"-100",
+    opacity:0,
+    scrollTrigger: {
+        trigger: ".page7",
+        start: "top 60%",
+        scrub: 2,
+    }
+});
+gsap.to(".astronaut-boat", {
+    x:"+100%",
+    scrollTrigger: {
+        trigger: ".page7",
+        start: "top 60%",
+        // end: "bottom top",
+        scrub: 2,
+    }       
+}); 

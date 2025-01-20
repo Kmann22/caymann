@@ -9,6 +9,7 @@ body{
     /* overflow-x: hidden; */
     /* position: fixed; */
 }
+
 .main{
     height: 100%;
     width: 100%;
@@ -69,7 +70,9 @@ body{
     background-color: #34495e;
 }
 .page7{
-    background-color: #f39c12;
+    position: relative;
+    z-index: 2;
+    background-color: var(--background-color); /* Add this to ensure the background is solid */
 }
 
 @media (max-width: 600px) {
@@ -97,8 +100,15 @@ body{
         height: 100vh;
         min-height: 100vh;
     }  
-     
-    .earth{
+     .astronaut-heart{
+        position: absolute;
+        top: 63%;
+        left: 72%;
+        transform: translateX(-50%);
+        width: 15%;
+        height: auto;
+     }  
+    .earth,.earth7{
         position: absolute;
         bottom: -25%;
         left: 50%;
@@ -121,6 +131,14 @@ body{
         transform: translateX(-50%);
         width: 30%;
         height: auto;
+    }   
+    .astronaut-moonfish{
+        position: absolute;
+        top: 10%;
+        right: 0%;
+        transform: translateX(-50%) scaleX(-1);  /* Combined transforms */
+        max-width: 90%;
+        height: auto;   
     }   
     .astronaut-moon{
         position: absolute;
@@ -151,6 +169,14 @@ body{
         width: 40%;
         height: auto;
         min-width: 110%;
+    }
+    .message7{
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        gap: -1rem;
     }
     .page1 .message,.page7 .message{
         position: absolute;
