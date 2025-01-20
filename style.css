@@ -169,7 +169,7 @@ body::-webkit-scrollbar {
 
 
 /*Mobile*/
-@media (max-width: 576px) {
+@media (max-width: 575.98px) {
     .stars-string2{
         display: none;
     }
@@ -290,14 +290,38 @@ body::-webkit-scrollbar {
 }
 
 
-@media (min-width: 576px) and (max-width:768px){
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
 
 }
 
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) and (max-width: 991.98px){
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*Not yet doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee*/
 /* Large devices (desktops, 992px and up) */
@@ -391,6 +415,119 @@ body::-webkit-scrollbar {
         width: 10%;
         height: auto;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*No landscape requiredddddddddddddddddddddddddddddddd*/
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px){
+    
+    .astronaut-ukulele{
+        position: absolute;
+        top: 5%;
+        right: 5%;
+        width: 20%;
+        height: auto;
+    }
+    .nav-btn:first-child {
+        top: 50%;
+        left: 60%;  /* Position left button */
+    }
+    .nav-btn:last-child {
+        top:50%;
+        right: 10%;  /* Position right button */
+    }
+    .astronaut-boat{
+        position: absolute;
+        bottom: 1.7%;
+        left: 60%;
+        transform: translateX(-50%);
+        width: 20%;
+        height: auto;
+    }   
+    .astronaut-laptop{
+        position: absolute;
+        top: 20%;
+        left: 25%;
+        transform: translate(-50%, -50%);
+        width: 20%;
+        height: auto;
+    }
+    .astronaut-moon{
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50%;
+        height: auto;   
+    }
+    .black-moon{
+        position: absolute;
+        bottom: -30%;
+        width: 40%;
+        height: auto;
+        width: 80%;
+    }
+    
+    .astronaut-star{
+        position: absolute;
+        bottom: 0%;
+        width: 15%;
+        height: auto;
+        z-index: 2;
+        left: 42%;
+        top: 100%;
+    } 
+
+    .earth,.earth7{
+        position: absolute;
+        bottom: -50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 110%;
+        height: auto;
+    }
+    .stars-string{
+        position: absolute;
+        top:5%;
+        right: 0%;
+        rotate: 20deg;
+        width: 50%;
+        height: auto;
+    }
+    .stars-string2{
+        position: absolute;
+        top: 3%;
+        left: 0%;
+        rotate: -20deg;
+        width: 50%;
+        height: auto;
+    }
+    .stones{
+        position: absolute;
+        bottom: 5%;
+        left: 25%;
+        transform: translateX(-50%);
+        width: 30%;
+        height: auto;
+    }
+
 }
 
 /*Large devices*/
