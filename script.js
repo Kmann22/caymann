@@ -407,3 +407,12 @@ gsap.to(".astronaut-boat", {
         scrub: 2,
     }       
 }); 
+
+gsap.to('.loading-screen', {
+    opacity: 0,
+    duration: 1,
+    ease: 'power2.inOut',
+    onComplete: () => {
+        document.querySelector('.loading-screen').style.display = 'none';
+    }
+});
