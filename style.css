@@ -170,9 +170,171 @@ body::-webkit-scrollbar {
     color: black;
 }
 
+/*Loading screen*/
 
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-astronaut {
+    width: 100px;
+    height: auto;
+    animation: float 2s ease-in-out infinite;
+}
+
+.loading-text {
+    color: white;
+    font-family: 'Schoolbell', sans-serif;
+    margin-top: 20px;
+    font-size: 1.5rem;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/*MOBILE NAV*/
+/* Mobile Navigation Styles */
+.mobile-nav-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+.nav-icon {
+    width: 36px;
+    padding: 10px;
+}
+.nav-icon span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+
+
+/*Nav bar*/
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-nav.active {
+    display: flex;
+    opacity: 1;
+}
+
+.nav-links {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-links a,#audioIcon {
+    font-family: "Schoolbell", sans-serif;
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    margin: 20px 0;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #666;
+}
+
+/* Hamburger menu animation classes */
+.nav-icon.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 5px);
+}
+
+.nav-icon.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-icon.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-7px, -8px);
+}
+
+
+.nav-btn {
+    position: absolute;  /* Position over the container */
+    background: rgba(255, 255, 255, 0.1);  /* Semi-transparent background */
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;  /* Fixed the negative padding */
+    transition: transform 0.2s;
+    z-index: 10;  /* Ensure buttons stay above content */
+    border-radius: 50%;  /* Circular buttons */
+}
+.nav-btn:hover {
+    transform: scale(1.1);
+}
+
+
+/*Audio Setup*/
+
+#audioToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 16px; /* Adjust font size as needed */
+    color: white; /* Adjust color based on your theme */
+}
+
+#audioToggle span {
+    display: flex;
+    align-items: center;
+}
+
+#audioToggle span::before {
+    content: '';
+    margin-right: 8px; /* Space between icon and text */
+}
+
+
+/*MEDIA QUERIES*/
 /*Mobile Portrait*/
-@media (max-width: 575px) and (orientation: portrait) {
+@media (max-width: 575.98px) and (orientation: portrait) {
     .stars-string2{
         display: none;
     }
@@ -293,7 +455,7 @@ body::-webkit-scrollbar {
 }
 
 /*Mobile Landscape*/
-@media (max-height: 575px) and (orientation: landscape) {
+@media (max-height: 575.98px) and (orientation: landscape) {
     .content-landscape{
         display: block;
     }
@@ -749,173 +911,4 @@ body::-webkit-scrollbar {
         width: 10%;
         height: auto;
     }
-}
-
-
-
-
-
-
-
-
-
-/* Mobile Navigation Styles */
-.mobile-nav-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    cursor: pointer;
-    display: none; /* Hidden by default, shown on mobile */
-}
-
-.nav-icon {
-    width: 30px;
-    padding: 10px;
-}
-
-.nav-icon span {
-    display: block;
-    width: 100%;
-    height: 3px;
-    background-color: #fff;
-    margin: 6px 0;
-    transition: 0.4s;
-}
-
-.mobile-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.95);
-    z-index: 999;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.mobile-nav.active {
-    display: flex;
-    opacity: 1;
-}
-
-.nav-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 24px;
-    margin: 20px 0;
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
-    color: #666;
-}
-
-/* Show mobile nav button only on mobile devices */
-@media screen and (max-width: 768px) {
-    .mobile-nav-button {
-        display: block;
-    }
-}
-
-/* Hamburger menu animation classes */
-.nav-icon.active span:nth-child(1) {
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.nav-icon.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.nav-icon.active span:nth-child(3) {
-    transform: rotate(45deg) translate(-8px, -8px);
-}
-
-
-.nav-btn {
-    position: absolute;  /* Position over the container */
-    background: rgba(255, 255, 255, 0.1);  /* Semi-transparent background */
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 10px;  /* Fixed the negative padding */
-    transition: transform 0.2s;
-    z-index: 10;  /* Ensure buttons stay above content */
-    border-radius: 50%;  /* Circular buttons */
-}
-.nav-btn:hover {
-    transform: scale(1.1);
-}
-
-
-.audio-controls {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-#audioToggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-}
-
-#audioToggle img {
-    width: 24px;
-    height: 24px;
-    filter: invert(1); /* If you want the icon to be white */
-}
-
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.loader-content {
-    text-align: center;
-}
-
-.loader-astronaut {
-    width: 100px;
-    height: auto;
-    animation: float 2s ease-in-out infinite;
-}
-
-.loading-text {
-    color: white;
-    font-family: 'Schoolbell', sans-serif;
-    margin-top: 20px;
-    font-size: 1.5rem;
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
 }

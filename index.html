@@ -28,24 +28,26 @@
     
     <div class="mobile-nav">
         <div class="nav-links">
-            <a href="#page1">Home</a>
-            <a href="#page2">About</a>
-            <a href="#page3">Experience</a>
-            <a href="#page7">Resume</a>
+            <a href="#Home">Home</a>
+            <a href="#About">About</a>
+            <a href="#Experience">Experience</a>
+            <a href="#Projects">Projects</a>
+            <a href="#Resume">Curriculum Vitae</a>
             <div class="audio-controls">
                 <audio id="bgMusic" loop>
                     <source src="assets/audio/song.m4a" type="audio/mp3">
                     Your browser does not support the audio element.
                 </audio>
                 <button id="audioToggle">
-                    <img src="assets/images/play.webp" alt="Play/Pause" id="audioIcon">
+                    <span id="audioIcon">&#9654; Play</span> <!-- Unicode for play icon -->
                 </button>
+                
             </div>
         </div>
     </div>
 
     <div class="main">
-        <div class="page1">
+        <div id="Home" class="page1">
             <img class="astronaut-moon" src="assets/images/astronaut-moonsleep.webp" alt="">
             <img class="earth" src="assets/images/earth.webp" alt="">
             <div class="message">
@@ -70,7 +72,7 @@
                 </a>
             </div>
         </div>
-        <div class="page2">
+        <div id="About" class="page2">
             <img src="assets/images/black-moon.webp" alt="" class="black-moon">
             <img class="stars-string" src="assets/images/stars-string.webp" alt="">
             <img class="stars-string2" src="assets/images/stars-string.webp" alt="">
@@ -82,7 +84,7 @@
         </div>
         <div class="horizontal-wrapper">
             <div class="horizontal">
-                <div class="page3">
+                <div id="Experience" class="page3">
                     <img src="assets/images/astronaut-laptop.png" alt="" class="astronaut-laptop">
                     <img src="assets/images/astronaut-star.webp" alt="" class="astronaut-star">
                     <div class="message">
@@ -105,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="page4">
+                <div id="Projects" class="page4">
                     <img src="assets/images/astronaut-ukulele.webp" alt="" class="astronaut-boat">
                     <img src="assets/images/astronaut-boat.webp" alt="" class="astronaut-ukulele">
                      <div class="message">
@@ -129,7 +131,7 @@
                 </div>
             </div>
         </div>
-        <div class="page7">
+        <div id="Resume" class="page7">
             <img class="astronaut-moon" src="assets/images/astronaut-moonsleep.webp" alt="">
             <img class="earth7" src="assets/images/earth.webp" alt="">
             <div class="message7">

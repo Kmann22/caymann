@@ -1,4 +1,14 @@
-// GSAP Animation Configuration
+// // Initialize Lenis
+// const lenis = new Lenis();
+
+// // Use requestAnimationFrame to continuously update the scroll
+// function raf(time) {
+//   lenis.raf(time);
+//   requestAnimationFrame(raf);
+// }
+
+
+/*HORIZONTAL SCROLL*/
 function initializeHorizontalScroll() {
     gsap.to(".horizontal", {
         x: () => -(document.querySelector(".horizontal").offsetWidth - window.innerWidth),
@@ -15,7 +25,7 @@ function initializeHorizontalScroll() {
     });
 }
 
-// Typing Animation Configuration
+/*TYPING EFFECT*/
 class TypingEffect {
     constructor(words, prefix = "I am ") {
         this.words = words;
@@ -59,7 +69,7 @@ class TypingEffect {
     }
 }
 
-// Initialize everything when DOM is loaded
+/*INITIALIZATION*/
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize horizontal scroll
     initializeHorizontalScroll();
@@ -131,6 +141,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
+/*MOBILE NAV*/
+const navButton = document.querySelector('.mobile-nav-button');
+const navIcon = document.querySelector('.nav-icon');
+const mobileNav = document.querySelector('.mobile-nav');
+
+navButton.addEventListener('click', () => {
+    navIcon.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+});
+
+// When clicking a nav link, make sure to remove both active classes
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navIcon.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
+});
+
+
+
+/*ANIMATIONS*/  
 gsap.from('.stars-string,.stars-string2, .page2 .title, .page2 .content, .black-moon', {
     opacity: 0,
     y: 30,
@@ -179,22 +211,6 @@ gsap.to(".black-moon", {
     }
 });
 
-const navButton = document.querySelector('.mobile-nav-button');
-const navIcon = document.querySelector('.nav-icon');
-const mobileNav = document.querySelector('.mobile-nav');
-
-navButton.addEventListener('click', () => {
-    navIcon.classList.toggle('active');
-    mobileNav.classList.toggle('active');
-});
-
-// When clicking a nav link, make sure to remove both active classes
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navIcon.classList.remove('active');
-        mobileNav.classList.remove('active');
-    });
-});
 
 gsap.to('.astronaut-star', {
     scrollTrigger: {
@@ -208,58 +224,10 @@ gsap.to('.astronaut-star', {
     duration:  30
 });
 
-// Words animation for page 5
-let words = gsap.utils.toArray('.word');
-words.forEach((word, index) => {
-    gsap.set(word, {
-        opacity: 0,
-        y: 50
-    });
-    
-    ScrollTrigger.create({
-        trigger: word,
-        start: "top 80%",
-        onEnter: () => {
-            gsap.to(word, {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                ease: "power2.out",
-                delay: index * 0.1 // Sequential animation
-            });
-        },
-        onLeaveBack: () => {
-            gsap.to(word, {
-                opacity: 0,
-                y: 50,
-                duration: 0.4
-            });
-        }
-    });
-});
-
-// Add this to your existing script.js
-const audioElement = document.getElementById('bgMusic');
-const audioToggle = document.getElementById('audioToggle');
-const audioIcon = document.getElementById('audioIcon');
-
-let isPlaying = false;
-
-audioToggle.addEventListener('click', () => {
-    if (isPlaying) {
-        audioElement.pause();
-        audioIcon.src = 'assets/images/play.webp';
-    } else {
-        audioElement.play();
-        audioIcon.src = 'assets/images/pause.webp';
-    }
-    isPlaying = !isPlaying;
-});
-
 // Add this with your other GSAP animations
 gsap.from(".social-links .social-icon", {
-    x:1,
-    duration: 1,
+    y:1,
+    duration: 2,
     stagger: 0.2,
     repeat: -1,
     yoyo: true,
@@ -304,6 +272,73 @@ gsap.to(".astronaut-boat, .astronaut-ukulele", {
     repeat: -1,
     ease: "power1.inOut"
 });
+
+gsap.to('.astronaut-ukulele', {
+    duration: 10,
+    // rotation: 360,
+    ease: "none",
+    repeat: -1,
+}); 
+gsap.to('.earth7', {
+    duration: 10,
+    rotation: 360,
+    ease: "none",
+    repeat: -1,
+}); 
+gsap.from('.page7 .astronaut-moonfish', {
+    y:"-100",
+    opacity:0,
+    scrollTrigger: {
+        trigger: ".page7",
+        start: "top 60%",
+        scrub: 2,
+    }
+});
+gsap.to(".astronaut-boat", {
+    x:"+85vw",
+    scrollTrigger: {
+        trigger: ".page7",
+        start: "top 60%",
+        // end: "bottom top",
+        scrub: 2,
+    }       
+}); 
+
+gsap.to('.loading-screen', {
+    opacity: 0,
+    duration: 1,
+    ease: 'power2.inOut',
+    onComplete: () => {
+        document.querySelector('.loading-screen').style.display = 'none';
+    }
+});
+
+const audioElement = document.getElementById('bgMusic');
+const audioToggle = document.getElementById('audioToggle');
+const audioIcon = document.getElementById('audioIcon');
+
+// Set the initial volume to a lower level (0.0 to 1.0 range)
+audioElement.volume = 0.2; // 20% of the maximum volume
+
+// Play the audio by default
+audioElement.play();
+audioIcon.innerHTML = '&#10074;&#10074; Pause'; // Set the icon to pause
+
+let isPlaying = true; // Set the initial state to playing
+
+audioToggle.addEventListener('click', () => {
+    if (isPlaying) {
+        audioElement.pause();
+        audioIcon.innerHTML = '&#9654; Play'; // Unicode for play icon
+    } else {
+        audioElement.play();
+        audioIcon.innerHTML = '&#10074;&#10074; Pause'; // Unicode for pause icon
+    }
+    isPlaying = !isPlaying;
+});
+
+
+
 
 // Project data array
 const projects = [
@@ -377,42 +412,4 @@ document.querySelector('.next-btn').addEventListener('click', () => {
 // Initialize first project and preload images
 preloadImages();
 updateProject(currentProjectIndex);
-gsap.to('.astronaut-ukulele', {
-    duration: 10,
-    // rotation: 360,
-    ease: "none",
-    repeat: -1,
-}); 
-gsap.to('.earth7', {
-    duration: 10,
-    rotation: 360,
-    ease: "none",
-    repeat: -1,
-}); 
-gsap.from('.page7 .astronaut-moonfish', {
-    y:"-100",
-    opacity:0,
-    scrollTrigger: {
-        trigger: ".page7",
-        start: "top 60%",
-        scrub: 2,
-    }
-});
-gsap.to(".astronaut-boat", {
-    x:"+85vw",
-    scrollTrigger: {
-        trigger: ".page7",
-        start: "top 60%",
-        // end: "bottom top",
-        scrub: 2,
-    }       
-}); 
 
-gsap.to('.loading-screen', {
-    opacity: 0,
-    duration: 1,
-    ease: 'power2.inOut',
-    onComplete: () => {
-        document.querySelector('.loading-screen').style.display = 'none';
-    }
-});
