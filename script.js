@@ -399,7 +399,7 @@ gsap.from('.page7 .astronaut-moonfish', {
     }
 });
 gsap.to(".astronaut-boat", {
-    x:"+100%",
+    x:"+85vw",
     scrollTrigger: {
         trigger: ".page7",
         start: "top 60%",
