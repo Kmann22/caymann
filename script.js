@@ -345,27 +345,27 @@ const projects = [
     {
         image: "assets/images/project-3d.webp",
         title: "Real time 3D Audio Generation",
-        link: "#link1"
+        link: "https://github.com/Kmann22/soundscape.git"
     },
     {
         image: "assets/images/project-cancer.webp",
         title: "Breast Cancer Detection",
-        link: "#link2"
+        link: "https://colab.research.google.com/drive/1C65aBBt99AxJXqhzZGSaHfK3wycsUcut?usp=sharing"
     },
     {
         image: "assets/images/project-hearingaid.webp",
         title: "Gamified Auditory Training for Hearing Rehabilitation",
-        link: "#link3"
+        link: "https://github.com/Kmann22/audivive.git"
     },
     {
         image: "assets/images/project-english.webp",
         title: "Vocab",
-        link: "#link4"
+        link: "https://github.com/Kmann22/vocab.git"
     },
     {
         image: "assets/images/project-chess.webp",
         title: "Chess",
-        link: "#link5"
+        link: "https://github.com/Kmann22/chessBackend.git"
     }
 ];
 
@@ -391,7 +391,7 @@ function updateProject(index) {
             <div class="project-info">
                 <p class="project-title">${project.title}</p>
                 <div class="project-links">
-                    <a href="${project.link}" class="project-link demo">Source Code 🔗</a>
+                    <a href="${project.link}" class="project-link demo" target="_blank">Source Code 🔗</a>
                 </div>
             </div>
         </div>
@@ -413,3 +413,40 @@ document.querySelector('.next-btn').addEventListener('click', () => {
 preloadImages();
 updateProject(currentProjectIndex);
 
+document.addEventListener('DOMContentLoaded', function () {
+    const audioElement = document.getElementById('bgMusic');
+    const audioToggle = document.getElementById('audioToggle');
+    const audioIcon = document.getElementById('audioIcon');
+    
+    let isPlaying = false;
+
+    // Set initial volume
+    audioElement.volume = 0.2;
+
+    // Prompt the user to keep the background music on or off
+    const musicPrompt = confirm("Would you like to keep the background music on? You can turn it off in the navigation bar.");
+    if (musicPrompt) {
+        // Start audio on the first click anywhere on the page
+        document.body.addEventListener('click', function startAudio() {
+            if (!isPlaying) {
+                audioElement.play();
+                audioIcon.innerHTML = '&#10074;&#10074; Pause'; // Pause icon
+                isPlaying = true;
+            }
+            // Remove this listener after the first click
+            document.body.removeEventListener('click', startAudio);
+        });
+    }
+
+    // Toggle play/pause when the button is clicked
+    audioToggle.addEventListener('click', function toggleAudio() {
+        if (isPlaying) {
+            audioElement.pause();
+            audioIcon.innerHTML = '&#9654; Play'; // Play icon
+        } else {
+            audioElement.play();
+            audioIcon.innerHTML = '&#10074;&#10074; Pause'; // Pause icon
+        }
+        isPlaying = !isPlaying;
+    });
+});
