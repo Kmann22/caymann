@@ -597,136 +597,34 @@ body::-webkit-scrollbar {
 
 }
 
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) and (max-width: 767.98px) and (orientation: portrait) {
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*Not yet doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee*/
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) and (max-width: 1199.98px) {    
-    .astronaut-ukulele{
-        position: absolute;
-        top: 10%;
-        right: 5%;
-        width: 10%;
-        height: auto;
+@media (max-width: 767.98px) and (max-height: 575.98px) and (orientation: portrait){
+    .content{
+        display: none;
     }
-    .nav-btn:first-child {
-        top: 50%;
-        left: 60%;  /* Position left button */
-    }
-    .nav-btn:last-child {
-        top:50%;
-        right: 10%;  /* Position right button */
-    }
-    .astronaut-boat{
-        position: absolute;
-        bottom: 1.7%;
-        left: 55%;
-        transform: translateX(-50%);
-        width: 10%;
-        height: auto;
-    }   
-    .astronaut-laptop{
-        position: absolute;
-        top: 20%;
-        left: 25%;
-        transform: translate(-50%, -50%);
-        width: 10%;
-        height: auto;
-    }
-    .astronaut-moon{
-        position: absolute;
-        top: 5%;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 30%;
-        height: auto;   
-    }
-    .black-moon{
-        position: absolute;
-        bottom: -30%;
-        width: 40%;
-        height: auto;
-        width: 40%;
-    }
-    
-    .astronaut-star{
-        position: absolute;
-        bottom: 0%;
-        width: 10%;
-        height: auto;
-        z-index: 2;
-        left: 46.5%;
-        top: 100%;
-    } 
-
-    .earth,.earth7{
-        position: absolute;
-        bottom: -50%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 50%;
-        height: auto;
-    }
-    .stars-string{
-        position: absolute;
-        top:-5%;
-        right: 0%;
-        rotate: 10deg;
-        width: 50%;
-        height: auto;
-    }
-    .stars-string2{
-        position: absolute;
-        top: -5%;
-        left: 0%;
-        rotate: -20deg;
-        width: 50%;
-        height: auto;
-    }
-    .stones{
-        position: absolute;
-        bottom: 2%;
-        left: 25%;
-        transform: translateX(-50%);
-        width: 10%;
-        height: auto;
-    }
-}
-
-/*No landscape requiredddddddddddddddddddddddddddddddd*/
+}   
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) and (orientation: portrait) {
+    
+.title{
+    font-size: 5rem;
+    font-family: 'Rubik Vinyl', sans-serif;
+    color: white;
+    text-align: center;
+}
+.message7{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    gap: -1rem;
+}
+.content1,.content,.download,.content-landscape{
+    font-family: "Schoolbell", sans-serif;
+    font-size: 2.1rem;
+    color: #f4f4f4;
+    text-align: center;
+}
     
     .astronaut-ukulele{
         position: absolute;
@@ -820,8 +718,125 @@ body::-webkit-scrollbar {
 
 }
 
+/* Surface Duo in single-screen mode (individual screens) */
+@media (max-width: 540px) and (max-height: 720px) and (orientation: portrait) {
+        /* .title{
+            font-size: 5rem;
+            font-family: 'Rubik Vinyl', sans-serif;
+            color: white;
+            text-align: center;
+        }
+        .message7{
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            gap: -1rem;
+        }
+        .content1,.content,.download,.content-landscape{
+            font-family: "Schoolbell", sans-serif;
+            font-size: 2.1rem;
+            color: #f4f4f4;
+            text-align: center;
+        } */
+            
+            .astronaut-ukulele{
+                position: absolute;
+                top: 5%;
+                right: 5%;
+                width: 20%;
+                height: auto;
+            }
+            .nav-btn:first-child {
+                top: 50%;
+                left: 60%;  /* Position left button */
+            }
+            .nav-btn:last-child {
+                top:50%;
+                right: 10%;  /* Position right button */
+            }
+            .astronaut-boat{
+                position: absolute;
+                bottom: 1.7%;
+                left: 60%;
+                transform: translateX(-50%);
+                width: 20%;
+                height: auto;
+            }   
+            .astronaut-laptop{
+                position: absolute;
+                top: 20%;
+                left: 25%;
+                transform: translate(-50%, -50%);
+                width: 20%;
+                height: auto;
+            }
+            .astronaut-moon{
+                position: absolute;
+                top: 5%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 50%;
+                height: auto;   
+            }
+            .black-moon{
+                position: absolute;
+                bottom: -55%;
+                width: 40%;
+                height: auto;
+                width: 80%;
+            }
+            
+            .astronaut-star{
+                position: absolute;
+                bottom: 0%;
+                width: 15%;
+                height: auto;
+                z-index: 2;
+                left: 42%;
+                top: 100%;
+            } 
+        
+            .earth,.earth7{
+                position: absolute;
+                bottom: -60%;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 80%;
+                width: auto;
+            }
+            .stars-string{
+                position: absolute;
+                top:-2%;
+                right: 2%;
+                rotate: -1deg;
+                width: 100%;
+                height: auto;
+            }
+            .stars-string2{
+                display: none;
+                position: absolute;
+                top: 3%;
+                left: 0%;
+                rotate: -20deg;
+                width: 50%;
+                height: auto;
+            }
+            .stones{
+                position: absolute;
+                bottom: 5%;
+                left: 25%;
+                transform: translateX(-50%);
+                width: 30%;
+                height: auto;
+            }
+          
+}
+
+
 /*Large devices*/
-@media (min-width: 1200px){
+@media (min-width: 992px){
     .astronaut-ukulele{
         position: absolute;
         top: 10%;
@@ -858,15 +873,15 @@ body::-webkit-scrollbar {
         top: 5%;
         left: 50%;
         transform: translateX(-50%);
-        max-width: 30%;
-        height: auto;   
+        width: auto;
+        height: 38%;   
     }
     .black-moon{
         position: absolute;
-        bottom: -30%;
-        width: 40%;
-        height: auto;
-        width: 40%;
+        bottom: -20%;
+        height: 50%;
+        width: auto;
+        /* width: 40%; */
     }
     
     .astronaut-star{
@@ -880,16 +895,17 @@ body::-webkit-scrollbar {
     } 
 
     .earth,.earth7{
+        /* display: none; */
         position: absolute;
-        bottom: -50%;
+        bottom: -30%;
         left: 50%;
         transform: translateX(-50%);
-        width: 50%;
-        height: auto;
+        width: auto;
+        height: 50%;
     }
     .stars-string{
         position: absolute;
-        top:-5%;
+        top:1%;
         right: 0%;
         rotate: 10deg;
         width: 50%;
@@ -897,9 +913,9 @@ body::-webkit-scrollbar {
     }
     .stars-string2{
         position: absolute;
-        top: -5%;
-        left: 0%;
-        rotate: -20deg;
+        top: -1%;
+        left: -2%;
+        rotate: -10deg;
         width: 50%;
         height: auto;
     }
@@ -912,3 +928,11 @@ body::-webkit-scrollbar {
         height: auto;
     }
 }
+
+
+
+
+
+
+
+

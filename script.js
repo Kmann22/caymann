@@ -412,7 +412,6 @@ document.querySelector('.next-btn').addEventListener('click', () => {
 // Initialize first project and preload images
 preloadImages();
 updateProject(currentProjectIndex);
-
 document.addEventListener('DOMContentLoaded', function () {
     const audioElement = document.getElementById('bgMusic');
     const audioToggle = document.getElementById('audioToggle');
@@ -420,17 +419,22 @@ document.addEventListener('DOMContentLoaded', function () {
     
     let isPlaying = false;
 
-    // Set initial volume
+    // Set initial volume (default is muted)
     audioElement.volume = 0.2;
 
+    // Initially set the music to off
+    audioElement.pause();
+    audioIcon.innerHTML = '&#9654; Play'; // Set the initial icon to 'Play'
+
     // Prompt the user to keep the background music on or off
-    const musicPrompt = confirm("Would you like to keep the background music on? You can turn it off in the navigation bar.");
+    const musicPrompt = confirm("🌌🚀 Would you like to keep the background music on? 🎶 You can turn it off anytime in the navigation bar! ✨");
+
     if (musicPrompt) {
-        // Start audio on the first click anywhere on the page
+        // Start playing audio after the first click on the page
         document.body.addEventListener('click', function startAudio() {
             if (!isPlaying) {
                 audioElement.play();
-                audioIcon.innerHTML = '&#10074;&#10074; Pause'; // Pause icon
+                audioIcon.innerHTML = '&#10074;&#10074; Pause'; // Change the icon to 'Pause'
                 isPlaying = true;
             }
             // Remove this listener after the first click
@@ -442,10 +446,10 @@ document.addEventListener('DOMContentLoaded', function () {
     audioToggle.addEventListener('click', function toggleAudio() {
         if (isPlaying) {
             audioElement.pause();
-            audioIcon.innerHTML = '&#9654; Play'; // Play icon
+            audioIcon.innerHTML = '&#9654; Play'; // Change the icon to 'Play'
         } else {
             audioElement.play();
-            audioIcon.innerHTML = '&#10074;&#10074; Pause'; // Pause icon
+            audioIcon.innerHTML = '&#10074;&#10074; Pause'; // Change the icon to 'Pause'
         }
         isPlaying = !isPlaying;
     });
