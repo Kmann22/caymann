@@ -412,6 +412,8 @@ document.querySelector('.next-btn').addEventListener('click', () => {
 // Initialize first project and preload images
 preloadImages();
 updateProject(currentProjectIndex);
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const audioElement = document.getElementById('bgMusic');
     const audioToggle = document.getElementById('audioToggle');
