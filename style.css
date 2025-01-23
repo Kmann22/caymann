@@ -597,11 +597,11 @@ body::-webkit-scrollbar {
 
 }
 
-@media (max-width: 767.98px) and (max-height: 575.98px) and (orientation: portrait){
+/* @media (max-width: 767.98px) and (max-height: 575.98px) and (orientation: portrait){
     .content{
         display: none;
     }
-}   
+}    */
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) and (orientation: portrait) {
     
