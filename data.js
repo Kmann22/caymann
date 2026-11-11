@@ -228,7 +228,8 @@ const projects = [
             "Connected with research around human-robot interaction in a real clinical setting."
         ],
         tech: ["Robotics", "Human-Robot Interaction"],
-        image: "assets/images/project-mirokai.webp",
+        image: "assets/images/project-mirokai-face.webp",   // close-up of her face
+        imagePos: "center top",
         links: []
     },
     {

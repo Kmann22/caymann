@@ -52,19 +52,44 @@ const responsiveAttrs = (src, sizes) => {
 
 /*HORIZONTAL SCROLL*/
 const hDist = () => document.querySelector('.horizontal').offsetWidth - window.innerWidth;
+
+/*PAUSE ON EACH PAGE*/
+// While scrolling, each page stays on screen for a moment before the next one arrives.
+// About and Skills: wrapped in a taller box and made sticky (CSS .dwell), so they hold
+// still while that extra height scrolls past. Experience and Projects: the sideways
+// section holds for HOLD() pixels before sliding and again after it.
+const HOLD = () => Math.round(window.innerHeight * 0.35);
+const dwellOf = {};
+['.page2', '.page-skills'].forEach(sel => {
+    const page = document.querySelector(sel);
+    if (!page) return;
+    const box = document.createElement('div');
+    box.className = 'dwell';
+    page.parentNode.insertBefore(box, page);
+    box.appendChild(page);
+    dwellOf[sel] = box;
+});
+// scroll triggers measure the (non-sticky) box, never the sticky page itself
+const aboutBox = dwellOf['.page2'] || document.querySelector('.page2');
+const skillsBox = dwellOf['.page-skills'] || document.querySelector('.page-skills');
+const hPin = () => ScrollTrigger.getById('hscroll');
 function initializeHorizontalScroll() {
-    return gsap.to('.horizontal', {
-        x: () => -hDist(),
-        ease: 'none',
-        scrollTrigger: {
-            trigger: '.horizontal-wrapper',
-            start: 'top top',
-            end: () => '+=' + hDist(),
-            scrub: true,
-            pin: true,
-            invalidateOnRefresh: true,
-            anticipatePin: 1
-        }
+    const track = document.querySelector('.horizontal');
+    // hold on Experience → slide to Projects → hold on Projects
+    const place = self => {
+        const px = self.progress * (self.end - self.start);
+        gsap.set(track, { x: -Math.min(Math.max(px - HOLD(), 0), hDist()) });
+    };
+    return ScrollTrigger.create({
+        id: 'hscroll',
+        trigger: '.horizontal-wrapper',
+        start: 'top top',
+        end: () => '+=' + (hDist() + 2 * HOLD()),
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: place,
+        onRefresh: place
     });
 }
 
@@ -89,7 +114,7 @@ function setupMoonFlight() {
         gsap.set(flyer, { x: lerp(a.left, b.left, e), y: lerp(a.top, b.top, e) - arc,
                           width: lerp(a.width, b.width, e), rotation: Math.sin(Math.PI * p) * -10 });
     };
-    const leg1 = ScrollTrigger.create({ trigger: skillsPage, start: 'top bottom', end: 'top top' });
+    const leg1 = ScrollTrigger.create({ trigger: skillsBox, start: 'top bottom', end: 'top top' });
     const leg2 = ScrollTrigger.create({ trigger: '.page-milestones', start: 'top bottom', endTrigger: '.page7', end: 'top top' });
     function update() {
         const p1 = leg1.progress, p2 = leg2.progress;
@@ -116,11 +141,11 @@ function setupMoonFlight() {
 // Each link lands exactly on its section (Experience and Projects share the
 // sideways section, so they get their own scroll positions).
 function setupWorldTransitions() {
-    const pin = () => ScrollTrigger.getAll().find(t => t.pin);
-    const skillsTop = () => document.querySelector('.page-skills').getBoundingClientRect().top + window.scrollY;
+    const pin = hPin;
+    const skillsTop = () => skillsBox.getBoundingClientRect().top + window.scrollY;
     const spots = {
         '#Home':       { name: 'HOME',       top: () => 0 },
-        '#About':      { name: 'ABOUT ME',   top: () => document.querySelector('.page2').getBoundingClientRect().top + window.scrollY },
+        '#About':      { name: 'ABOUT ME',   top: () => aboutBox.getBoundingClientRect().top + window.scrollY },
         '#Experience': { name: 'EXPERIENCE', top: () => pin().start + 1 },
         '#Projects':   { name: 'PROJECTS',   top: () => pin().end },
         '#Skills':     { name: 'SKILLS',     top: () => skillsTop() },
@@ -234,7 +259,7 @@ function setupWorldTransitions() {
             pill.classList.add('tapped'); setTimeout(() => pill.classList.remove('tapped'), 1600);
             if (!count || !window.showProjectsForSkill) return;
             window.showProjectsForSkill(it.text, uses);
-            const pin = ScrollTrigger.getAll().find(t => t.pin);
+            const pin = hPin();
             if (window.spaceWarp) window.spaceWarp('PROJECTS');
             setTimeout(() => window.scrollTo({ top: pin.end, behavior: 'instant' }), 220);
         });
@@ -315,7 +340,7 @@ function setupWorldTransitions() {
 
     // pills fade in one after another as the page arrives
     ScrollTrigger.create({
-        trigger: page, start: 'top 45%',
+        trigger: skillsBox, start: 'top 45%',
         onEnter: () => page.classList.add('lit'),
         onLeaveBack: () => page.classList.remove('lit')
     });
@@ -368,10 +393,10 @@ function setupWorldTransitions() {
         return card;
     };
     // two copies back to back make the loop seamless
-    // filter: Achievements (wins + degrees) and Certifications; both on by default
-    const show = { ach: true, cert: true };
+    // two tabs: Achievements (wins + degrees, shown first) or Certifications (certificates + awards)
+    let showKind = 'ach';
     function fill() {
-        const list = mixed.filter(c => (c.kind === 'cert' ? show.cert : show.ach));
+        const list = mixed.filter(c => (c.kind === 'cert' ? 'cert' : 'ach') === showKind);
         track.replaceChildren();
         [0, 1].forEach(copy => list.forEach(c => { const n = make(c); if (copy) { n.setAttribute('aria-hidden', 'true'); n.tabIndex = -1; } track.appendChild(n); }));
         track.style.setProperty('--n', list.length);
@@ -380,11 +405,13 @@ function setupWorldTransitions() {
     document.querySelectorAll('.ms-filter button').forEach(b => {
         b.addEventListener('click', e => {
             e.stopPropagation();
-            const k = b.dataset.kind;
-            if (show[k] && !show[k === 'ach' ? 'cert' : 'ach']) return;       // keep at least one on
-            show[k] = !show[k];
-            b.classList.toggle('on', show[k]);
-            b.setAttribute('aria-pressed', show[k]);
+            if (b.dataset.kind === showKind) return;
+            showKind = b.dataset.kind;
+            document.querySelectorAll('.ms-filter button').forEach(o => {
+                const on = o.dataset.kind === showKind;
+                o.classList.toggle('on', on);
+                o.setAttribute('aria-pressed', on);
+            });
             fill(); x = 0;
         });
     });
@@ -590,6 +617,44 @@ function setupWorldTransitions() {
             loading.hidden = true; soon.hidden = false;
         }, 200 + steps.length * gap + 450);
     }
+    // Everything on the CV page spirals into the black hole (and floats back out when the pop-up closes).
+    // Uses the separate translate / rotate / scale properties, so it never fights the other animations.
+    const PREY = ['.page7 .twinkle-layer', '.page7 .astronaut-moon', '.page7 .earth7', '.page7 .earth-ring',
+                  '.page7 .message7', '.page7 .cv-arrow', '.page7 .social-links'];
+    let eaten = [];
+    function swallow(cx, cy) {
+        eaten = PREY.map(sel => document.querySelector(sel)).filter(Boolean).map(el => {
+            const r = el.getBoundingClientRect();
+            const dx = r.left + r.width / 2 - cx, dy = r.top + r.height / 2 - cy;
+            return { el, r0: Math.hypot(dx, dy), a0: Math.atan2(dy, dx), p: 0 };
+        });
+        eaten.sort((a, b) => a.r0 - b.r0);                       // nearest things go first
+        eaten.forEach((it, i) => {
+            gsap.to(it, {
+                p: 1, duration: 1.1, delay: i * 0.05, ease: 'power1.in',
+                onUpdate: () => drawPrey(it)
+            });
+        });
+    }
+    function drawPrey(it) {
+        const p = it.p, r = it.r0 * (1 - p), a = it.a0 + p * Math.PI * 1.1;   // spiral inwards
+        const x = r * Math.cos(a) - it.r0 * Math.cos(it.a0), y = r * Math.sin(a) - it.r0 * Math.sin(it.a0);
+        it.el.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`;
+        it.el.style.rotate = (p * 220).toFixed(1) + 'deg';
+        it.el.style.scale = Math.max(0.001, 1 - p).toFixed(3);
+        it.el.style.filter = p > 0.02 ? `blur(${(p * 4).toFixed(1)}px)` : '';
+    }
+    function spitOut() {
+        eaten.forEach((it, i) => {
+            gsap.killTweensOf(it);
+            gsap.to(it, {
+                p: 0, duration: 0.8, delay: 0.1 + i * 0.05, ease: 'back.out(1.4)',
+                onUpdate: () => drawPrey(it),
+                onComplete: () => { it.el.style.translate = it.el.style.rotate = it.el.style.scale = it.el.style.filter = ''; }
+            });
+        });
+        eaten = [];
+    }
     const panel = modal.querySelector('.bh-panel');
     function open() {
         modal.classList.add('open');
@@ -603,7 +668,7 @@ function setupWorldTransitions() {
         modal.classList.remove('open');
         modal.setAttribute('aria-hidden', 'true');
         document.documentElement.style.overflow = '';
-        document.body.classList.remove('bh-swallow');
+        spitOut();
         busy = false;
         hole.focus({ preventScroll: true });
     }
@@ -615,10 +680,8 @@ function setupWorldTransitions() {
         hole.classList.add('pulling');
         const cx = r.left + r.width / 2, cy = r.top + r.height * 0.47;
         window.blackHolePull(cx, cy);
-        const main = document.querySelector('.main'), mr = main.getBoundingClientRect();
-        main.style.transformOrigin = `${cx - mr.left}px ${cy - mr.top}px`;
-        document.body.classList.add('bh-swallow');
-        setTimeout(() => { open(); hole.classList.remove('pulling'); }, 1150);
+        swallow(cx, cy);
+        setTimeout(() => { open(); hole.classList.remove('pulling'); }, 1350);
     });
     modal.querySelector('.exp-close').addEventListener('click', close);
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
@@ -692,9 +755,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'none',
         scrollTrigger: {
             trigger: '.horizontal-wrapper',
-            start: () => 'top+=' + Math.round(hDist() * 0.55) + ' top',
-            end: () => '+=' + Math.round(hDist() * 0.45),
-            scrub: 1.2,
+            start: () => 'top+=' + Math.round(HOLD() + hDist() * 0.5) + ' top',
+            end: () => '+=' + Math.round(hDist() * 0.5 + HOLD() * 0.85),   // slow: still gliding in while Projects holds
+            scrub: 2,
             invalidateOnRefresh: true
         }
     });
@@ -719,9 +782,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'none',
         scrollTrigger: {
             trigger: '.horizontal-wrapper',
-            start: () => 'top+=' + Math.round(hDist() * 0.6) + ' top',
-            end: () => '+=' + Math.round(hDist() * 0.4),
-            scrub: 1.2,
+            start: () => 'top+=' + Math.round(HOLD() + hDist() * 0.6) + ' top',
+            end: () => '+=' + Math.round(hDist() * 0.4 + HOLD() * 0.95),
+            scrub: 2,
             invalidateOnRefresh: true
         }
     });
@@ -787,10 +850,10 @@ gsap.from('.star-garland, .page2 .title, .page2 .content, .black-moon', {
     duration: 2,
     ease: "power2.out",
     scrollTrigger: {
-        trigger: '.page2',
+        trigger: aboutBox,
         start: 'top 80%',
-        end: 'center center',
-        scrub: 2,        
+        end: 'top top',
+        scrub: 2,
     },
     stagger: 0.5,
 }); 
@@ -801,9 +864,9 @@ gsap.to('.earth', {
     duration: 3,
     ease: "none",
     scrollTrigger: {
-        trigger: '.page2',
+        trigger: aboutBox,
         start: 'top 80%',
-        end: 'center center',
+        end: 'top top',
         scrub: 2,
     },
 }); 
@@ -822,7 +885,7 @@ gsap.to(".black-moon", {
     rotation: 360,
     ease: "none",
     scrollTrigger: {
-        trigger: '.page2',
+        trigger: aboutBox,
         start: 'top bottom',
         end: 'bottom top',
         scrub: 2
@@ -839,9 +902,9 @@ gsap.fromTo('.astronaut-star',
         ease: 'none',
         scrollTrigger: {
             trigger: '.horizontal-wrapper',
-            start: () => 'top+=' + Math.round(hDist() * 0.08) + ' top',
+            start: () => 'top+=' + Math.round(HOLD() * 0.5 + hDist() * 0.08) + ' top',
             // on phones he finishes rising before Projects settles, so he never sits beside the card
-            end: () => '+=' + Math.round(window.innerWidth < 576 ? hDist() * 0.8 : hDist() * 0.92 + window.innerHeight * 0.7),
+            end: () => '+=' + Math.round(window.innerWidth < 576 ? HOLD() * 0.5 + hDist() * 0.8 : HOLD() * 1.3 + hDist() * 0.92 + window.innerHeight * 0.7),
             scrub: 2.5,
             invalidateOnRefresh: true
         }
@@ -865,6 +928,30 @@ gsap.from(".social-links .social-icon", {
 
 
  
+/*ABOUT: title + paragraph centred in the open sky between the star garland and the moon*/
+(function centreAbout() {
+    const page = document.querySelector('.page2');
+    const msg = page && page.querySelector('.message');
+    const garland = page && page.querySelector('.star-garland');
+    const moon = page && page.querySelector('.black-moon');
+    if (!msg) return;
+    const place = () => {
+        msg.style.translate = '0 0';
+        const H = page.clientHeight;
+        if (!H) return;
+        const top = garland ? garland.offsetHeight * 0.85 : 0;                 // stars hang a little above the box's bottom
+        const bottom = moon ? Math.min(H, Math.max(top, moon.offsetTop)) : H;  // where the moon starts
+        let target = (top + bottom) / 2;
+        const half = msg.offsetHeight / 2;
+        target = Math.min(Math.max(target, half), H - half);                  // never pushed off the page
+        msg.style.translate = '0 ' + Math.round(target - (msg.offsetTop + half)) + 'px';
+    };
+    place();
+    window.addEventListener('resize', place);
+    if (document.fonts) document.fonts.ready.then(place);
+    if (window.ResizeObserver) new ResizeObserver(place).observe(page);
+})();
+
 /*CV: keep the "Let's connect" ring sized to the earth and centred on it, on every screen*/
 (function earthRing() {
     const ring = document.querySelector('.earth-ring'), earth = document.querySelector('.page7 .earth7');
@@ -895,10 +982,23 @@ gsap.to('.earth7', {
 // every scroll animation once with the final layout, then reveal the page.
 (function revealWhenReady() {
     const loader = document.querySelector('.loading-screen');
-    // only the first screen's pictures need to be ready; the rest load lazily while you read
-    const firstScreen = Promise.all([...document.querySelectorAll('.page1 img, .loading-screen img')].map(img =>
-        img.complete ? Promise.resolve() : new Promise(r => { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); })));
-    const pageLoaded = firstScreen;
+    // Load EVERY picture (all pages, project cards, milestones) while the loading screen is up,
+    // so fast scrolling never reaches a page that is still empty. The cards are built further
+    // down this file, so the list is collected a moment later, once they exist.
+    const text = loader.querySelector('.loading-text');
+    const waitFor = img => (img.complete ? Promise.resolve() : new Promise(r => {
+        img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true });
+    })).then(() => (img.decode ? img.decode().catch(() => {}) : null));   // decoded now = no stutter later
+    const pageLoaded = new Promise(r => setTimeout(r, 0)).then(() => {
+        const imgs = [...document.images];
+        ['assets/images/background.webp'].forEach(src => { const i = new Image(); i.src = src; imgs.push(i); });   // CSS backgrounds
+        imgs.forEach(img => { img.loading = 'eager'; });
+        let done = 0;
+        return Promise.all(imgs.map(img => waitFor(img).then(() => {
+            done++;
+            if (text) text.textContent = `Loading... ${Math.round(done / imgs.length * 100)}%`;
+        })));
+    });
     // when everything else has arrived, re-measure the scroll animations once more
     window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
     // ask for both fonts explicitly: fonts.ready alone can resolve before an @import'ed font has even started
@@ -906,7 +1006,7 @@ gsap.to('.earth7', {
         ? Promise.all([document.fonts.load('1em "Rubik Vinyl"'), document.fonts.load('1em "Schoolbell"'), document.fonts.load('1em "Nunito"')]).catch(() => {}).then(() => document.fonts.ready)
         : Promise.resolve();
     const minTime = new Promise(r => setTimeout(r, 700));          // avoid a jarring flash
-    const safety = new Promise(r => setTimeout(r, 8000));          // never get stuck on slow networks
+    const safety = new Promise(r => setTimeout(r, 12000));         // never get stuck on slow networks
     Promise.race([Promise.all([pageLoaded, fontsLoaded, minTime]), safety]).then(() => {
         window.scrollTo(0, 0);
         ScrollTrigger.refresh();
@@ -1196,14 +1296,10 @@ gsap.to('.earth7', {
         const info = el('span', 'proj-info');
         if (!p.award && p.status) info.appendChild(el('span', 'proj-status', p.status));
         info.appendChild(el('span', 'proj-title' + (p.title.length > 42 ? ' is-long' : ''), p.title));
-        if (p.tech && p.tech.length) {
-            const tags = el('span', 'proj-tags');
-            p.tech.slice(0, 3).forEach(t => tags.appendChild(el('span', 'proj-tag', t)));
-            if (p.tech.length > 3) tags.appendChild(el('span', 'proj-tag more', '+' + (p.tech.length - 3)));
-            info.appendChild(tags);
-        }
+        if (p.tech && p.tech.length) info.appendChild(el('span', 'proj-tags'));   // filled by fitCards(): one tidy row
         info.appendChild(el('span', 'proj-open', 'Open the project →'));
         card.appendChild(info);
+        card._p = p;
         card.addEventListener('click', () => {
             if (dragged) return;
             if (i === current) openLog(i); else go(i);
@@ -1223,8 +1319,33 @@ gsap.to('.earth7', {
         cards = visible.map(makeCard);
         cards.forEach(c => track.appendChild(c));
         current = 0;
+        fitCards();
         layout();
     }
+
+    /* ---- card height = picture + just the words it needs (title up to 2 lines, one row of tags) ---- */
+    function fillTags(card) {
+        const p = card._p, box = card.querySelector('.proj-tags');
+        if (!box) return;
+        const render = n => {
+            box.replaceChildren();
+            p.tech.slice(0, n).forEach(t => box.appendChild(el('span', 'proj-tag', t)));
+            if (p.tech.length > n) box.appendChild(el('span', 'proj-tag more', '+' + (p.tech.length - n)));
+        };
+        let n = Math.min(3, p.tech.length);
+        render(n);
+        while (n > 1 && box.scrollWidth > box.clientWidth + 1) render(--n);   // drop tags that would wrap
+    }
+    function fitCards() {
+        if (!cards.length) return;
+        cards.forEach(fillTags);
+        const info = cards[0].querySelector('.proj-info');
+        const art = Math.round(track.offsetWidth * 0.58);
+        const h = art + Math.max(...cards.map(c => c.querySelector('.proj-info').offsetHeight));
+        if (info && h > art) stage.style.setProperty('--card-h', h + 'px');
+    }
+    window.addEventListener('resize', () => { stage.style.removeProperty('--card-h'); fitCards(); });
+    if (document.fonts) document.fonts.ready.then(fitCards);
 
     /* ---- position every card around the selected one (loops round) ---- */
     function layout() {
@@ -1277,7 +1398,7 @@ gsap.to('.earth7', {
         const p = visible[current], c = cats[p.category] || {};
         body.replaceChildren();
         body.appendChild(el('div', 'log-tag', `PROJECT · ${String(projects.indexOf(p) + 1).padStart(2, '0')}  ·  ${(c.name || '').toUpperCase()}`));
-        if (p.image) { const ban = responsive(el('img', 'proj-banner'), p.image, '(max-width: 700px) 92vw, 620px'); ban.alt = ''; body.appendChild(ban); }
+        if (p.image) { const ban = responsive(el('img', 'proj-banner'), p.image, '(max-width: 700px) 92vw, 620px'); ban.alt = ''; if (p.imagePos) ban.style.objectPosition = p.imagePos; body.appendChild(ban); }
         body.appendChild(el('div', 'exp-role proj-log-title', p.title));
         const chips = el('div', 'log-chips');
         if (p.status) chips.appendChild(el('span', 'log-chip' + (p.award ? ' gold' : ''), (p.award ? '★ ' : '') + p.status));
