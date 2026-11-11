@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caymann</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/earth.webp">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rubik+Vinyl&family=Schoolbell&display=swap');
-    </style>
-    
+    <link rel="icon" type="image/webp" href="assets/images/earth.webp">
+    <!-- Fonts: connect to Google early, then load only the weights the site uses -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik+Vinyl&family=Schoolbell&display=swap">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="loading-screen">
         <div class="loader-content">
-            <img src="assets/images/astronaut-laptop.png" alt="Loading..." class="loader-astronaut">
+            <img src="assets/images/astronaut-laptop.webp" alt="Loading..." class="loader-astronaut" width="421" height="350">
             <div class="loading-text">Loading...</div>
         </div>
     </div>
@@ -32,6 +32,7 @@
             <a href="#About">About</a>
             <a href="#Experience">Experience</a>
             <a href="#Projects">Projects</a>
+            <a href="#Skills">Skills</a>
             <a href="#Resume">Curriculum Vitae</a>
             <div class="audio-controls">
                 <button id="audioToggle">
@@ -43,13 +44,13 @@
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="assets/audio/song.m4a" type="audio/mp3">
+        <source src="assets/audio/song.m4a" type="audio/mp4">
         Your browser does not support the audio element.
     </audio>
     <div class="main">
         <div id="Home" class="page1">
-            <img class="astronaut-moon" src="assets/images/astronaut-moonsleep.webp" alt="">
-            <img class="earth" src="assets/images/earth.webp" alt="">
+            <img class="astronaut-moon" src="assets/images/astronaut-moonsleep.webp" alt="" width="385" height="375">
+            <img class="earth" src="assets/images/earth.webp" alt="" width="379" height="375">
             <div class="message">
                 <div class="title">CAYMANN VELINGKAR</div>
                 <div class="content1">I am tech enthusiast!</div>
@@ -57,108 +58,162 @@
             
             <div class="social-links">
                 <!-- Gmail Link -->
-                <a href="mailto:velingkar.cayman@gmail.com" class="social-icon">
-                    <img src="assets/images/gmail.webp" alt="Gmail">
+                <a href="mailto:velingkarcaymann@gmail.com" class="social-icon">
+                    <img src="assets/images/gmail.webp" alt="Gmail" width="2048" height="2048">
                 </a>
                 
                 <!-- LinkedIn Link -->
                 <a href="https://www.linkedin.com/in/caymann-velingkar-975014207/" target="_blank" class="social-icon">
-                    <img src="assets/images/linkedin.webp" alt="LinkedIn">
+                    <img src="assets/images/linkedin.webp" alt="LinkedIn" width="2216" height="2216">
                 </a>
                 
                 <!-- WhatsApp Link -->
                 <a href="https://wa.me/+918554844249" target="_blank" class="social-icon">
-                    <img src="assets/images/whatsapp.webp" alt="WhatsApp">
+                    <img src="assets/images/whatsapp.webp" alt="WhatsApp" width="2288" height="2288">
                 </a>
             </div>
+            <div class="scroll-hint" aria-hidden="true"><span class="sh-mouse"><i></i></span><span class="sh-text">scroll to explore</span></div>
         </div>
         <div id="About" class="page2">
-            <img src="assets/images/black-moon.webp" alt="" class="black-moon">
-            <img class="stars-string" src="assets/images/stars-string.webp" alt="">
-            <img class="stars-string2" src="assets/images/stars-string.webp" alt="">
+            <img src="assets/images/black-moon.webp" alt="" class="black-moon" width="373" height="375" loading="lazy">
+            <div class="star-garland" aria-hidden="true"></div>
             <div class="message">
                 <div class="title">ABOUT ME</div>
-                <div class="content">Hello, World! <br> Welcome to my ever-expanding universe of growth and kindness. I am on a journey to create impactful solutions. Currently, my medium of providing help is through Data Science and Full Stack Development. Each day, I fuel my journey by expanding my knowledge and strengthening my universe, one line of code at a time. I truly value your presence in my little universe.
+                <div class="content">Hello, World! <br> Welcome to my ever-expanding universe of growth and kindness. I am on a journey to create impactful solutions. Currently, my medium of making a difference is through Artificial Intelligence, Data Science, and Software &amp; Systems Development. Each day, I fuel my journey by expanding my knowledge and strengthening my universe, one line of code at a time. I truly value your presence in my little universe.
                     </div>
+                </div>
                 </div>
         </div>
         <div class="horizontal-wrapper">
             <div class="horizontal">
                 <div id="Experience" class="page3">
-                    <img src="assets/images/astronaut-laptop.png" alt="" class="astronaut-laptop">
-                    <img src="assets/images/astronaut-star.webp" alt="" class="astronaut-star">
-                    <div class="message">
-                        <img class="stones" src="assets/images/stones.webp" alt="" srcset="">
-                        <div class="title">EXPERIENCE</div>
-                        <div class="content">
-                            OneShield Softwares <br> Quality Assurance Intern    
-                            <br>
-                            Enhanced team collaboration by implementing the Cucumber framework for BDD, streamlining test definitions.
-                            <br>
-                            Automated 25+ test cases using Gherkin syntax and Selenium with Java, reducing manual testing time by 80%.
-                            <br>
-                            Refactored scripts and validated mandatory fields, improving efficiency and data accuracy.
+                    <img src="assets/images/astronaut-star.webp" alt="" class="astronaut-star" width="576" height="1080" loading="lazy">
+                    <div class="exp-wrap">
+                        <header class="exp-head">
+                            <div class="title">EXPERIENCE</div>
+                        </header>
+                        <div class="exp-body">
+                            <div class="exp-guide">
+                                <img src="assets/images/astronaut-laptop.webp" alt="" class="astronaut-laptop" width="421" height="350" loading="lazy">
+                                <div class="exp-bubble">Hi there! <span class="exp-verb">Tap</span> a planet to explore my journey</div>
+                            </div>
+                            <div class="exp-orbit">
+                                <svg class="exp-path" aria-hidden="true"><path></path></svg>
+                                <!-- Planets are generated from the `experiences` list in script.js -->
+                                <ol class="exp-stops"></ol>
+                            </div>
+                            <div class="exp-scroll-btns" aria-hidden="true">
+                                <button type="button" class="exp-sbtn exp-up" tabindex="-1" aria-label="Previous roles">▲</button>
+                                <button type="button" class="exp-sbtn exp-down" tabindex="-1" aria-label="More roles">▼</button>
+                            </div>
                         </div>
-                        <div class="content-landscape">
-                            OneShield Softwares | Quality Assurance Intern <br>    
-                            Enhanced team collaboration by implementing the Cucumber framework for BDD, streamlining test definitions.
-                            Automated 25+ test cases using Gherkin syntax and Selenium with Java, reducing manual testing time by 80%.
-                            Refactored scripts and validated mandatory fields, improving efficiency and data accuracy.
-                        </div>
+                        <div class="exp-asteroids" aria-hidden="true"></div>
                     </div>
                 </div>
                 <div id="Projects" class="page4">
-                    <img src="assets/images/astronaut-ukulele.webp" alt="" class="astronaut-boat">
-                    <img src="assets/images/astronaut-boat.webp" alt="" class="astronaut-ukulele">
-                     <div class="message">
-                        <div class="title">PROJECTS</div>
-                        <div class="content">
-                            <div class="project-card">
-                                <img src="assets/images/project-3d.webp" alt="Project Image" class="project-image">
-                                <div class="project-info">
-                                    <p class="project-title">Real time 3D Audio Generation</p>
-                                    <div class="project-links">
-                                        <a href="#" class="project-link demo">Source Code 🔗</a>
-                                    </div>
-                                </div>
-                            </div>                                         
+                    <img src="assets/images/astronaut-boat.webp" alt="" class="proj-boat" width="530" height="471" loading="lazy">
+                    <img src="assets/images/astronaut-moonsleep.webp" alt="" class="proj-moon" width="385" height="375" loading="lazy">
+                    <div class="proj-wrap">
+                        <header class="exp-head">
+                            <div class="title">PROJECTS</div>
+                        </header>
+                        <div class="proj-tools">
+                            <div class="proj-chips" role="tablist" aria-label="Project categories"></div>
                         </div>
-                        <div class="project-navigation">
-                            <button class="nav-btn prev-btn">◀</button>
-                            <button class="nav-btn next-btn">▶</button>
-                        </div>  
+                        <!-- Cards are generated from the `projects` list in data.js -->
+                        <div class="proj-stage" tabindex="-1">
+                            <div class="proj-orbit-ring" aria-hidden="true"></div>
+                            <div class="proj-track" aria-live="polite"></div>
+                            <button class="proj-btn proj-prev" aria-label="Previous project">◀</button>
+                            <button class="proj-btn proj-next" aria-label="Next project">▶</button>
+                        </div>
+                        <div class="proj-nav">
+                            <div class="proj-meter">
+                                <span class="proj-count">01 / 16</span>
+                                <span class="proj-progress"><span></span></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="Resume" class="page7">
-            <img class="astronaut-moon" src="assets/images/astronaut-moonsleep.webp" alt="">
-            <img class="earth7" src="assets/images/earth.webp" alt="">
-            <div class="message7">
-                <div class="title">CURRICULUM <br> VITAE</div>
-                <a href="assets/pdf/Caymann_Velingkar_CV.pdf" download class="download">Download</a> 💗
+        <div id="Skills" class="page-skills">
+            <div class="skills-wrap">
+                <div class="title skills-title">SKILLS</div>
+                <!-- Pills are generated from the `skillGroups` list in data.js -->
+                <div class="skill-field" aria-label="My skills"></div>
+                <div class="skills-centre"><img src="assets/images/astronaut-moonsleep.webp" alt="" class="skills-moon" width="385" height="375" loading="lazy"></div>
+                <div class="skill-legend" aria-hidden="true"></div>
             </div>
+        </div>
+        <div id="Milestones" class="page-milestones">
+            <div class="ms-wrap">
+                <div class="ms-tab"><span class="ms-tab-title">★ Milestones</span><span class="ms-tab-sub">certifications · achievements · education</span></div>
+                <!-- Cards are generated from `education`, `achievements` and `certificates` in data.js -->
+                <div class="ms-filter" role="group" aria-label="Show">
+                    <button type="button" class="on" data-kind="ach" aria-pressed="true">Achievements</button>
+                    <button type="button" class="on" data-kind="cert" aria-pressed="true">Certifications</button>
+                </div>
+                <div class="ms-strip"><div class="ms-track"></div></div>
+                <button type="button" class="ms-arrow ms-prev" aria-label="Previous">◀</button>
+                <button type="button" class="ms-arrow ms-next" aria-label="Next">▶</button>
+            </div>
+        </div>
+        <div id="Resume" class="page7">
+            <img class="astronaut-moon" src="assets/images/astronaut-moonsleep.webp" alt="" width="385" height="375" loading="lazy">
+            <img class="earth7" src="assets/images/earth.webp" alt="" width="379" height="375" loading="lazy">
+            <!-- "Let's connect" written round the earth; script.js keeps it sized and centred on the earth -->
+            <div class="earth-ring" aria-hidden="true">
+                <svg viewBox="0 0 200 200">
+                    <defs><path id="earthRingPath" d="M10,100 a90,90 0 1,1 180,0 a90,90 0 1,1 -180,0"/></defs>
+                    <text><textPath href="#earthRingPath" textLength="562" lengthAdjust="spacing">LET&#8217;S CONNECT &#10022; OPEN TO OPPORTUNITIES &#10022; LET&#8217;S CONNECT &#10022; OPEN TO OPPORTUNITIES &#10022; LET&#8217;S CONNECT &#10022; OPEN TO OPPORTUNITIES &#10022; </textPath></text>
+                </svg>
+            </div>
+            <!-- Mysterious black hole: click to "start" the (coming soon) game -->
+            <button class="black-hole" aria-label="A mysterious black hole. Click to start a game">
+                <img src="assets/images/blackhole.webp" alt="" width="666" height="375" loading="lazy">
+            </button>
+            <div class="message message7">
+                <div class="title">CURRICULUM <br> VITAE</div>
+                <a href="assets/pdf/Caymann_Velingkar_CV.pdf" download class="download cv-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Download CV</a>
+            </div>
+            <svg class="cv-arrow" viewBox="0 0 160 120" aria-hidden="true">
+                <path class="cv-arrow-line" d="M10 12 C 55 0, 120 18, 112 58 C 106 86, 84 92, 128 104"/>
+                <path class="cv-arrow-head" d="M112 92 L130 105 L110 113"/>
+            </svg>
             <div class="social-links">
                 <!-- Gmail Link -->
-                <a href="mailto:velingkar.cayman@gmail.com" class="social-icon">
-                    <img src="assets/images/gmail.webp" alt="Gmail">
+                <a href="mailto:velingkarcaymann@gmail.com" class="social-icon">
+                    <img src="assets/images/gmail.webp" alt="Gmail" width="2048" height="2048" loading="lazy">
                 </a>
                 
                 <!-- LinkedIn Link -->
                 <a href="https://www.linkedin.com/in/caymann-velingkar-975014207/" target="_blank" class="social-icon">
-                    <img src="assets/images/linkedin.webp" alt="LinkedIn">
+                    <img src="assets/images/linkedin.webp" alt="LinkedIn" width="2216" height="2216" loading="lazy">
                 </a>
                 
                 <!-- WhatsApp Link -->
                 <a href="https://wa.me/+918554844249" target="_blank" class="social-icon">
-                    <img src="assets/images/whatsapp.webp" alt="WhatsApp">
+                    <img src="assets/images/whatsapp.webp" alt="WhatsApp" width="2288" height="2288" loading="lazy">
                 </a>
             </div>
         </div>
     </div>
     
+    <img src="assets/images/astronaut-moonsleep.webp" alt="" class="moon-traveller" aria-hidden="true" width="385" height="375" loading="lazy">
+
+    <!-- Experience details pop-up (lives outside the scrolling section so it always centres on screen) -->
+    <div class="exp-modal" aria-hidden="true">
+        <div class="exp-modal-panel" role="dialog" aria-modal="true" aria-label="Experience details">
+            <button class="exp-close" aria-label="Close">&times;</button>
+            <div class="exp-modal-body"></div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="data.js"></script>
     <script src="script.js"></script>
+    <script src="fx.js"></script>
 </body>
 </html>

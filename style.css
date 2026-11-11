@@ -22,6 +22,7 @@ body::-webkit-scrollbar {
 /*Horizontal scrolling*/
 .horizontal-wrapper {
     overflow: hidden;   /*Important for horizontal scrolling*/
+    overflow: clip;     /* clip, but never scrollable (focus can't shift the content) */
     width: 100%;
 }
 .horizontal {
@@ -29,6 +30,7 @@ body::-webkit-scrollbar {
     flex-wrap: nowrap;
     width: fit-content;
     height: 100vh;
+    height: 100svh;
 }
 
 /*Social links*/
@@ -50,16 +52,16 @@ body::-webkit-scrollbar {
 }
 .social-icon img:hover {
     transform: scale(1.2); /* Add hover effect */
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
 }
  
 
 /*Pages*/
 /*Didnt make page5 and page6 skill*/
-.page1,.page2,.page3,.page4,.page5,.page6,.page7{
+.page1,.page2,.page3,.page4,.page7{
     background-image: url('assets/images/background.webp');
     background-size: cover;
     height: 100vh;
+    height: 100svh;
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -68,12 +70,14 @@ body::-webkit-scrollbar {
 .page1,.page2,.page7{
     background-position: center;    
     overflow: hidden;
+    overflow: clip;
     position: relative;
     width: 100%;
     height: 100vh;
-    min-height: 100vh;
+    height: 100svh;
+    min-height: 100svh;
 } 
-.page3,.page4,.page5{
+.page3,.page4{
     background-position: center;    
 }
 
@@ -105,70 +109,15 @@ body::-webkit-scrollbar {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    gap: -1rem;
 }
-.content1,.content,.download,.content-landscape{
+.content1,.content,.download{
     font-family: "Schoolbell", sans-serif;
     font-size: 1.2rem;
     color: #f4f4f4;
     text-align: center;
 }
-.content-landscape{
-    display: none;
-}
-
 
 /*Project card*/
-.project-card {
-    min-width: 320px;  /* Slightly wider cards */
-    flex-shrink: 0;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 1.5rem;
-    /* height: 0%; */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-}
-.project-image {
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-}
-.project-info {
-    color: white;
-    text-align: center;
-}
-.project-title {
-    font-family: "Schoolbell", sans-serif;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-.project-links {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-}
-.project-link {
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    text-decoration: none;
-    font-family: "Schoolbell", sans-serif;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.project-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-.project-link.demo {
-    background-color: #f1c40f;
-    color: black;
-}
 
 /*Loading screen*/
 
@@ -235,8 +184,6 @@ body::-webkit-scrollbar {
     transition: 0.4s;
 }
 
-
-
 /*Nav bar*/
 .mobile-nav {
     position: fixed;
@@ -292,23 +239,8 @@ body::-webkit-scrollbar {
     transform: rotate(45deg) translate(-7px, -8px);
 }
 
-
-.nav-btn {
-    position: absolute;  /* Position over the container */
-    background: rgba(255, 255, 255, 0.1);  /* Semi-transparent background */
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 10px;  /* Fixed the negative padding */
-    transition: transform 0.2s;
-    z-index: 10;  /* Ensure buttons stay above content */
-    border-radius: 50%;  /* Circular buttons */
-}
-.nav-btn:hover {
-    transform: scale(1.1);
-}
-
+/* Arrows are positioned against the projects box itself, so they sit
+   beside the card on every screen size (no per-breakpoint offsets needed) */
 
 /*Audio Setup*/
 
@@ -331,19 +263,20 @@ body::-webkit-scrollbar {
     margin-right: 8px; /* Space between icon and text */
 }
 
+/*Readability: comfortable line length + spacing*/
+.content {
+    max-width: 65ch;
+    margin: 0 auto;
+}
+@media (min-width: 992px) {
+    .content {
+        font-size: 1.45rem;
+    }
+}
 
 /*MEDIA QUERIES*/
 /*Mobile Portrait*/
 @media (max-width: 575.98px) and (orientation: portrait) {
-    .stars-string2{
-        display: none;
-    }
-    .astronaut-ukulele{
-        position: absolute;
-        top: 5%;
-        width: 25%;
-        height: auto;
-    }
     .astronaut-laptop{
         position: absolute;
         top: 15%;
@@ -359,14 +292,6 @@ body::-webkit-scrollbar {
         transform: translateX(-50%);
         min-width: 110%;
         height: auto;
-    }
-    .astronaut-boat{
-        position: absolute;
-        bottom: 1.7%;
-        left: 83%;
-        transform: translateX(-50%);
-        width: 30%;
-        height: auto;
     }     
     .astronaut-moon{
         position: absolute;
@@ -375,12 +300,6 @@ body::-webkit-scrollbar {
         transform: translateX(-50%);
         max-width: 90%;
         height: auto;   
-    }
-    .stars-string{
-        position: absolute;
-        top: 0%;
-        width: 100%;
-        height: auto;
     }  
     .astronaut-star{
         position: absolute;
@@ -398,78 +317,14 @@ body::-webkit-scrollbar {
         height: auto;
         min-width: 110%;
     }
-    .stones{
-        position: absolute;
-        bottom: 2%;
-        left: 25%;
-        transform: translateX(-50%);
-        width: 45%;
-        height: auto;
-    }
-    .projects-section {
-        width: 100%;
-        /* padding: 0 1rem; */
-    }
-
-    .projects-container {
-        width: 90%;
-        /* padding: 1w 0; */
-        /* gap: 15px; */
-    }
-
-    .project-card {
-        min-width: 260px; /* Smaller cards for mobile */
-        height: 300px;
-        padding: 1rem;
-    }
-
-    .project-image {
-        width: 100%;
-        height: 160px; /* Slightly smaller images for mobile */
-    }
-
-    .project-title {
-        font-size: 1.2rem; /* Smaller font size for mobile */
-    }
     /* Ensure message4 container doesn't overflow */
-    .message4 {
-        width: 100%;
-        padding: 1rem;
-        overflow: hidden;
-    }
 
     /* Adjust title spacing */
-    .projects-section .title {
-        margin-bottom: 1rem;
-        font-size: 2.5rem;
-    } 
-    .nav-btn:first-child {
-        top: 50%;
-        left: 52%;  /* Position left button */
-    }
-    .nav-btn:last-child {
-        top:50%;
-        right: 2%;  /* Position right button */
-    }
 
 }
 
 /*Mobile Landscape*/
 @media (max-height: 575.98px) and (orientation: landscape) {
-    .content-landscape{
-        display: block;
-    }
-    .page3 .content{
-        display: none;
-    }
-    .astronaut-ukulele{
-        /* display: none; */
-        position: absolute;
-        top: 5%;
-        right: 5%;
-        width: 10%;
-        height: auto;
-    }
     .astronaut-laptop{
         /* display: none; */
         position: absolute;
@@ -486,15 +341,6 @@ body::-webkit-scrollbar {
         transform: translateX(-50%);
         width: 50%;
         height: auto;
-    } 
-    .astronaut-boat{
-        position: absolute;
-        bottom: 1.7%;
-        left: 55%;
-        transform: translateX(-50%);
-        width: 10%;
-        /* display: none; */
-        height: auto;
     }     
     .astronaut-moon{
         position: absolute;
@@ -503,24 +349,6 @@ body::-webkit-scrollbar {
         transform: translateX(0%);
         width: 30%;
         height: auto;   
-    }
-    
-    .stars-string2{
-        /* display: none; */
-        position: absolute;
-        top:-1%;
-        left: 0%;
-        transform: rotate(-10deg);
-        width: 40%;
-        height: auto;
-    }
-    .stars-string{
-        position: absolute;
-        top: 0%;
-        right: 0%;
-        rotate: 0deg;
-        width: 40%;
-        height: auto;
     }  
     .astronaut-star{
         position: absolute;
@@ -537,63 +365,13 @@ body::-webkit-scrollbar {
         height: auto;
         width: 30%;
     }
-    .stones{
-        /* display: none; */
-        position: absolute;
-        bottom: 1%;
-        left: 25%;
-        transform: translateX(-50%);
-        width: 12%;
-        height: auto;
-    }
-    .projects-section {
-        width: 100%;
-        /* padding: 0 1rem; */
-    }
-
-    .projects-container {
-        width: 90%;
-        /* padding: 1w 0; */
-        /* gap: 15px; */
-    }
     
 .social-icon img {
     filter: none;
 }
-    .project-card {
-        min-width: 260px; /* Smaller cards for mobile */
-        height: 300px;
-        padding: 1rem;
-    }
-
-    .project-image {
-        width: 100%;
-        height: 160px; /* Slightly smaller images for mobile */
-    }
-
-    .project-title {
-        font-size: 1.2rem; /* Smaller font size for mobile */
-    }
     /* Ensure message4 container doesn't overflow */
-    .message4 {
-        width: 100%;
-        padding: 1rem;
-        overflow: hidden;
-    }
 
     /* Adjust title spacing */
-    .projects-section .title {
-        margin-bottom: 1rem;
-        font-size: 2.5rem;
-    } 
-    .nav-btn:first-child {
-        top: 50%;
-        left: 60%;  /* Position left button */
-    }
-    .nav-btn:last-child {
-        top:50%;
-        right: 10%;  /* Position right button */
-    }
 
 }
 
@@ -603,10 +381,10 @@ body::-webkit-scrollbar {
     }
 }    */
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) and (max-width: 991.98px) and (orientation: portrait) {
+/* Covers 576–991px portrait (foldables, iPad mini, iPad Air) — previously 576–767 had no rules */
+@media (min-width: 576px) and (max-width: 991.98px) and (orientation: portrait) {
     
 .title{
-    font-size: 5rem;
     font-family: 'Rubik Vinyl', sans-serif;
     color: white;
     text-align: center;
@@ -619,36 +397,12 @@ body::-webkit-scrollbar {
     text-align: center;
     gap: -1rem;
 }
-.content1,.content,.download,.content-landscape{
+.content1,.content,.download{
     font-family: "Schoolbell", sans-serif;
     font-size: 2.1rem;
     color: #f4f4f4;
     text-align: center;
-}
-    
-    .astronaut-ukulele{
-        position: absolute;
-        top: 5%;
-        right: 5%;
-        width: 20%;
-        height: auto;
-    }
-    .nav-btn:first-child {
-        top: 50%;
-        left: 60%;  /* Position left button */
-    }
-    .nav-btn:last-child {
-        top:50%;
-        right: 10%;  /* Position right button */
-    }
-    .astronaut-boat{
-        position: absolute;
-        bottom: 1.7%;
-        left: 60%;
-        transform: translateX(-50%);
-        width: 20%;
-        height: auto;
-    }   
+}   
     .astronaut-laptop{
         position: absolute;
         top: 20%;
@@ -667,10 +421,6 @@ body::-webkit-scrollbar {
     }
     .black-moon{
         position: absolute;
-        bottom: -30%;
-        width: 40%;
-        height: auto;
-        width: 80%;
     }
     
     .astronaut-star{
@@ -685,35 +435,8 @@ body::-webkit-scrollbar {
 
     .earth,.earth7{
         position: absolute;
-        bottom: -50%;
         left: 50%;
         transform: translateX(-50%);
-        width: 110%;
-        height: auto;
-    }
-    .stars-string{
-        position: absolute;
-        top:5%;
-        right: 0%;
-        rotate: 20deg;
-        width: 50%;
-        height: auto;
-    }
-    .stars-string2{
-        position: absolute;
-        top: 3%;
-        left: 0%;
-        rotate: -20deg;
-        width: 50%;
-        height: auto;
-    }
-    .stones{
-        position: absolute;
-        bottom: 5%;
-        left: 25%;
-        transform: translateX(-50%);
-        width: 30%;
-        height: auto;
     }
 
 }
@@ -739,31 +462,7 @@ body::-webkit-scrollbar {
             font-size: 2.1rem;
             color: #f4f4f4;
             text-align: center;
-        } */
-            
-            .astronaut-ukulele{
-                position: absolute;
-                top: 5%;
-                right: 5%;
-                width: 20%;
-                height: auto;
-            }
-            .nav-btn:first-child {
-                top: 50%;
-                left: 60%;  /* Position left button */
-            }
-            .nav-btn:last-child {
-                top:50%;
-                right: 10%;  /* Position right button */
-            }
-            .astronaut-boat{
-                position: absolute;
-                bottom: 1.7%;
-                left: 60%;
-                transform: translateX(-50%);
-                width: 20%;
-                height: auto;
-            }   
+        } */   
             .astronaut-laptop{
                 position: absolute;
                 top: 20%;
@@ -806,60 +505,11 @@ body::-webkit-scrollbar {
                 height: 80%;
                 width: auto;
             }
-            .stars-string{
-                position: absolute;
-                top:-2%;
-                right: 2%;
-                rotate: -1deg;
-                width: 100%;
-                height: auto;
-            }
-            .stars-string2{
-                display: none;
-                position: absolute;
-                top: 3%;
-                left: 0%;
-                rotate: -20deg;
-                width: 50%;
-                height: auto;
-            }
-            .stones{
-                position: absolute;
-                bottom: 5%;
-                left: 25%;
-                transform: translateX(-50%);
-                width: 30%;
-                height: auto;
-            }
           
 }
 
-
-/*Large devices*/
-@media (min-width: 992px){
-    .astronaut-ukulele{
-        position: absolute;
-        top: 10%;
-        right: 5%;
-        width: 10%;
-        height: auto;
-    }
-    .nav-btn:first-child {
-        top: 50%;
-        left: 60%;  /* Position left button */
-    }
-    .nav-btn:last-child {
-        top:50%;
-        right: 10%;  /* Position right button */
-    }
-    .astronaut-boat{
-        position: absolute;
-        bottom: 1.7%;
-        left: 55%;
-        transform: translateX(-50%);
-        width: 10%;
-        height: auto;
-    }   
+/*Large devices — plus mid-size landscape screens (e.g. 900x650 windows) that previously had no rules*/
+@media (min-width: 992px), (orientation: landscape) and (min-height: 576px){   
     .astronaut-laptop{
         position: absolute;
         top: 20%;
@@ -903,32 +553,2096 @@ body::-webkit-scrollbar {
         width: auto;
         height: 50%;
     }
-    .stars-string{
-        position: absolute;
-        top:1%;
-        right: 0%;
-        rotate: 10deg;
-        width: 50%;
-        height: auto;
+}
+
+/* Very small phones (iPhone SE 1st gen, older Androids ≤374px):
+   titles were colliding with the decorations */
+@media (max-width: 374.98px) {
+    .title { font-size: 2.2rem; }
+    .content1, .content, .download { font-size: 1rem; }
+    .message { padding: 1.5rem; }
+}
+
+/* ================= EXPERIENCE — "mission log" =================
+   Layout: title on top · astronaut guide + orbit of planets in the middle ·
+   drifting asteroid belt along the bottom.                                  */
+.exp-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    overflow: clip;
+}
+
+/* ---- Heading ---- */
+.exp-head {
+    flex: none;
+    position: relative;
+    text-align: center;
+    padding-top: clamp(1rem, 5vh, 3rem);
+}
+.page3 .exp-head .title {
+    font-size: clamp(1.9rem, 1rem + 3.4vw, 4.5rem);
+    line-height: 1;
+}
+/* little hand-drawn sparkles either side of the title */
+.exp-head::before,
+.exp-head::after {
+    content: "";
+    position: absolute;
+    width: clamp(18px, 2vw, 30px);
+    aspect-ratio: 1;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1c.8 5.6 3.4 8.2 11 11-7.6 2.8-10.2 5.4-11 11-.8-5.6-3.4-8.2-11-11 7.6-2.8 10.2-5.4 11-11z' fill='%23f1c40f'/%3E%3C/svg%3E") center / contain no-repeat;
+    animation: exp-twinkle 2.6s ease-in-out infinite;
+}
+.exp-head::before { left: -2.2em; top: 55%; }
+.exp-head::after  { right: -2em; top: 20%; animation-delay: 1.3s; width: clamp(12px, 1.4vw, 20px); }
+@keyframes exp-twinkle {
+    0%, 100% { transform: scale(0.6) rotate(0deg); opacity: 0.5; }
+    50%      { transform: scale(1.1) rotate(20deg); opacity: 1; }
+}
+
+/* ---- Middle: guide + orbit ---- */
+.exp-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: min(94vw, 1300px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1rem, 4vw, 4rem);
+}
+.exp-guide {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.exp-guide .astronaut-laptop {
+    position: static;
+    transform: none;
+    width: auto;
+    height: auto;
+    max-height: min(40vh, 320px);
+    max-width: 24vw;
+}
+/* comic speech bubble in the same outlined style as the artwork */
+.exp-bubble {
+    position: relative;
+    margin-top: 0.9rem;
+    max-width: 240px;
+    padding: 0.6rem 1rem;
+    background: #fff;
+    color: #1b1638;
+    border: 3px solid #1b1638;
+    border-radius: 18px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+    font-family: "Schoolbell", sans-serif;
+    font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.15rem);
+    line-height: 1.3;
+    text-align: center;
+}
+.exp-bubble::before {
+    content: "";
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-left: 3px solid #1b1638;
+    border-top: 3px solid #1b1638;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.exp-orbit {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 900px;
+}
+/* dotted orbit line, drawn through the planets by script.js */
+.exp-path {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+.exp-path path {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 1 11;
+    animation: exp-march 1.6s linear infinite;
+}
+@keyframes exp-march { to { stroke-dashoffset: -24; } }
+
+.exp-stops {
+    position: relative;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 2rem 1rem;
+}
+.exp-stops > li { display: flex; }
+.exp-stops > li:nth-child(even) { margin-top: clamp(2.5rem, 9vh, 5.5rem); }   /* orbit wave */
+
+.exp-stop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    width: clamp(170px, 18vw, 240px);
+    background: none;
+    border: none;
+    color: #f4f4f4;
+    font-family: "Schoolbell", sans-serif;
+    text-align: center;
+    cursor: pointer;
+}
+.exp-planet {
+    position: relative;
+    display: block;
+    width: clamp(96px, 9vw, 150px);
+    aspect-ratio: 1;
+    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), filter 0.35s;
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.5));
+}
+.exp-planet svg {
+    width: 100%;
+    height: 100%;
+    animation: exp-bob 4.5s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+}
+@keyframes exp-bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-8px) rotate(4deg); }
+}
+.exp-stop:hover .exp-planet,
+.exp-stop:focus-visible .exp-planet {
+    transform: scale(1.14);
+    filter: drop-shadow(0 0 18px rgba(241, 196, 15, 0.7));
+}
+.exp-stop:focus-visible { outline: none; }
+.exp-badge {
+    position: absolute;
+    top: -4px;
+    right: -14px;
+    padding: 0.1rem 0.5rem;
+    background: #f1c40f;
+    color: #1b1638;
+    border: 2px solid #1b1638;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    transform: rotate(8deg);
+}
+.exp-text { display: flex; flex-direction: column; gap: 0.1rem; }
+.exp-role {
+    font-size: clamp(1.15rem, 1rem + 0.5vw, 1.5rem);
+    color: #f1c40f;
+    line-height: 1.15;
+}
+.exp-org  { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.15rem); }
+.exp-when { font-size: 0.95rem; opacity: 0.7; }
+.exp-stop:hover .exp-role { text-decoration: underline wavy rgba(241,196,15,.6) 1px; text-underline-offset: 4px; }
+
+/* ---- Drifting asteroid belt: flat row of rocks cut from stones.webp, tiles seamlessly at any width ---- */
+.exp-asteroids {
+    --belt-h: clamp(60px, 14vh, 170px);
+    flex: none;
+    position: relative;
+    width: 100vw;
+    height: var(--belt-h);
+    background: url("assets/images/asteroid-belt.webp") left bottom / auto 100% repeat-x;
+    animation: exp-belt 90s linear infinite;
+    pointer-events: none;
+}
+.exp-asteroids::before {            /* fainter, smaller far-away belt for depth */
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 45%;
+    height: 50%;
+    background: url("assets/images/asteroid-belt.webp") left bottom / auto 100% repeat-x;
+    opacity: 0.3;
+    filter: blur(1px);
+    animation: exp-belt-far 140s linear infinite;
+}
+@keyframes exp-belt     { to { background-position-x: calc(var(--belt-h) * -10.733); } }
+@keyframes exp-belt-far { to { background-position-x: calc(var(--belt-h) * 5.367); } }
+
+/* ---- Mission log pop-up ---- */
+.exp-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(5, 6, 20, 0.72);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.exp-modal.open { opacity: 1; visibility: visible; }
+.exp-modal-panel {
+    position: relative;
+    width: min(620px, 100%);
+    max-height: 86vh;
+    max-height: 86svh;
+    overflow-y: auto;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 3px solid #2e2a5c;
+    border-radius: 22px;
+    font-family: "Schoolbell", sans-serif;
+    transform: translateY(16px) scale(0.96);
+    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+}
+.exp-modal.open .exp-modal-panel { transform: none; }
+.exp-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.8rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: transform 0.2s;
+}
+.exp-close:hover { transform: rotate(90deg); }
+.log-tag {
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    color: #f1c40f;
+    opacity: 0.85;
+}
+.log-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.6rem;
+    padding-right: 1.5rem;
+}
+.log-head svg { flex: none; width: 64px; height: 64px; }
+.log-head .exp-role { font-size: clamp(1.35rem, 1.1rem + 1vw, 1.8rem); }
+.log-head .exp-org  { margin-top: 0.15rem; }
+.log-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.log-chip {
+    padding: 0.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    font-size: 0.95rem;
+}
+.log-points {
+    list-style: none;
+    margin-top: 1.1rem;
+    padding-top: 1.1rem;
+    border-top: 2px dashed rgba(255, 255, 255, 0.18);
+}
+.log-points li { position: relative; padding-left: 1.6rem; margin-bottom: 0.55rem; }
+.log-points li::before { content: "★"; position: absolute; left: 0; color: #f1c40f; }
+.log-empty {
+    margin-top: 1.1rem;
+    padding-top: 1.1rem;
+    border-top: 2px dashed rgba(255, 255, 255, 0.18);
+    opacity: 0.7;
+}
+.log-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+}
+.log-nav button {
+    padding: 0.4rem 0.9rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    color: #fff;
+    font-family: "Schoolbell", sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+.log-nav button:hover { background: rgba(241, 196, 15, 0.15); border-color: #f1c40f; }
+.log-count { opacity: 0.6; font-size: 0.95rem; }
+
+/* ================= Responsive ================= */
+
+/* Portrait phones & tablets: guide on top, planets in a vertical zig-zag */
+@media (orientation: portrait) and (max-width: 991.98px) {
+    .exp-body { flex-direction: column; gap: clamp(0.75rem, 2.5vh, 2rem); }
+    .exp-guide { flex-direction: row; gap: 1rem; }
+    .exp-guide .astronaut-laptop { max-height: 22vh; max-width: 38vw; }
+    .exp-bubble { margin-top: 0; max-width: 200px; }
+    .exp-bubble::before {
+        top: 50%;
+        left: -11px;
+        border-top: none;
+        border-bottom: 3px solid #1b1638;
+        transform: translateY(-50%) rotate(45deg);
     }
-    .stars-string2{
-        position: absolute;
-        top: -1%;
-        left: -2%;
-        rotate: -10deg;
-        width: 50%;
-        height: auto;
+    .exp-orbit {
+        flex: 0 1 auto;
+        width: 100%;
+        max-width: 560px;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 2.5rem 0;
     }
-    .stones{
-        position: absolute;
-        bottom: 2%;
-        left: 25%;
-        transform: translateX(-50%);
-        width: 10%;
-        height: auto;
+    .exp-stops { flex-direction: column; flex-wrap: nowrap; gap: 1.75rem; }
+    .exp-path path { stroke-dasharray: 1 8; }
+    .exp-stops > li:nth-child(even) { margin-top: 0; padding-left: clamp(2rem, 10vw, 4rem); }
+    .exp-stop { flex-direction: row; gap: 1rem; text-align: left; }
+    .exp-planet { width: clamp(64px, 16vw, 100px); flex: none; }
+}
+@media (orientation: portrait) and (min-width: 576px) and (max-width: 991.98px) {
+    .exp-guide .astronaut-laptop { max-height: 24vh; }
+    .exp-bubble { max-width: 260px; font-size: 1.2rem; }
+}
+/* Short portrait phones (iPhone SE…) */
+@media (orientation: portrait) and (max-height: 700px) {
+    .exp-guide .astronaut-laptop { max-height: 18vh; }
+    .exp-bubble { font-size: 0.9rem; padding: 0.45rem 0.75rem; }
+    .exp-planet { width: 56px; }
+    .exp-asteroids { --belt-h: 56px; }
+}
+/* Phones turned sideways: tiny height */
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .exp-head { padding-top: 0.5rem; }
+    .page3 .exp-head .title { font-size: 2rem; }
+    .exp-guide .astronaut-laptop { max-height: 34vh; }
+    .exp-bubble { font-size: 0.85rem; max-width: 170px; padding: 0.4rem 0.7rem; margin-top: 0.6rem; }
+    .exp-planet { width: 58px; }
+    .exp-stop { gap: 0.3rem; }
+    .exp-stops > li:nth-child(even) { margin-top: 1.5rem; }
+    .exp-asteroids { --belt-h: 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .exp-asteroids, .exp-asteroids::before, .exp-path path,
+    .exp-planet svg, .exp-head::before, .exp-head::after { animation: none; }
+}
+
+/* ================= SPACE FX ================= */
+.fx-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;   /* never blocks clicks */
+    z-index: 998;           /* above the pages, below menu / pop-ups / loader */
+}
+
+/* Rocket cursor, and a glowing star over anything clickable (mouse users only) */
+@media (hover: hover) and (pointer: fine) {
+    html, body {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate%28-45 16 16%29'%3E%3Cpath d='M13 21 L16 29 L19 21Z' fill='%23f1c40f'/%3E%3Cpath d='M14.5 21 L16 25.5 L17.5 21Z' fill='%23ff7a3d'/%3E%3Cpath d='M11 15 L6.5 21.5 L11.5 20.5Z M21 15 L25.5 21.5 L20.5 20.5Z' fill='%23ff5b6e' stroke='%231b1638' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M16 2.5 C21 6.5 22 13 21 20.5 L11 20.5 C10 13 11 6.5 16 2.5Z' fill='%23fff' stroke='%231b1638' stroke-width='2' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='11.5' r='2.7' fill='%237fb8ff' stroke='%231b1638' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E") 6 6, auto;
+    }
+    :is(a, button, #audioToggle, .mobile-nav-button, .nav-icon, .exp-stop, .nav-btn, .exp-close, .project-link, .social-icon) {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M15 2 C16 10 20 14 28 15 C20 16 16 20 15 28 C14 20 10 16 2 15 C10 14 14 10 15 2Z' fill='%23f1c40f' stroke='%231b1638' stroke-width='1.8' stroke-linejoin='round'/%3E%3Ccircle cx='15' cy='15' r='2' fill='%23fff'/%3E%3C/svg%3E") 15 15, pointer;
     }
 }
 
+/* Music prompt */
+.music-toast {
+    position: fixed;
+    left: 50%;
+    top: 1.25rem;
+    z-index: 1500;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem 1rem;
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    padding: 0.75rem 1rem 0.75rem 1.25rem;
+    background: rgba(18, 20, 42, 0.95);
+    border: 3px solid #2e2a5c;
+    border-radius: 18px;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45), 0 0 40px rgba(142, 108, 241, 0.3);
+    color: #f4f4f4;
+    font-family: "Schoolbell", sans-serif;
+    font-size: 1.05rem;
+    transform: translate(-50%, -160%);
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(.34,1.56,.64,1), opacity 0.3s;
+}
+.music-toast.show { transform: translate(-50%, 0); opacity: 1; }
+.music-toast-actions { display: flex; gap: 0.5rem; }
+.music-toast button {
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    border: 2px solid #1b1638;
+    font-family: "Schoolbell", sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.music-toast button:hover { transform: translateY(-2px); }
+.music-toast .mt-yes { background: #f1c40f; color: #1b1638; }
+.music-toast .mt-no  { background: rgba(255, 255, 255, 0.1); color: #fff; border-color: rgba(255,255,255,0.25); }
 
+/* ================= WARP TRANSITION between worlds ================= */
+.warp-label {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 998;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    pointer-events: none;
+    text-align: center;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    transition: opacity 0.2s ease, transform 0.35s cubic-bezier(.22,1.4,.36,1);
+}
+.warp-label.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.warp-label.leave { opacity: 0; transform: translate(-50%, -50%) scale(1.3); transition-duration: 0.25s; }
+.warp-kicker {
+    font-family: "Schoolbell", sans-serif;
+    color: #f1c40f;
+    letter-spacing: 0.35em;
+    font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.3rem);
+}
+.warp-name {
+    font-family: "Rubik Vinyl", sans-serif;
+    color: #fff;
+    font-size: clamp(2rem, 1.2rem + 4vw, 5rem);
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(142, 108, 241, 0.8);
+    white-space: nowrap;
+}
 
+/* Certificate button in the mission log */
+.log-cert {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.35rem 0.9rem;
+    background: #f1c40f;
+    color: #1b1638;
+    border: 2px solid #1b1638;
+    border-radius: 999px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+.log-cert:hover { transform: translateY(-2px) rotate(-1deg); }
+
+/* ================= STAR GARLAND (About) ================= */
+.star-garland {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: clamp(110px, 24vh, 230px);
+    pointer-events: none;
+    z-index: 1;
+}
+.star-garland svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.star-garland .gs { animation: garland-swing 4s ease-in-out infinite alternate; }
+@keyframes garland-swing {
+    from { transform: rotate(-7deg); }
+    to   { transform: rotate(7deg); }
+}
+@media (orientation: portrait) and (max-width: 575.98px) {
+    .star-garland { height: clamp(80px, 15vh, 140px); }
+}
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .star-garland { height: 15vh; }
+}
+@media (prefers-reduced-motion: reduce) { .star-garland .gs { animation: none; } }
+
+/* ================= ASTRONAUT WITH THE STAR =================
+   Sits on the seam between Experience and Projects and rises from the bottom
+   to the top as you scroll sideways. Sized by screen height so the whole
+   astronaut is visible on every device.                                   */
+.page3 .astronaut-star {
+    position: absolute;
+    left: 100vw;                   /* right on the Experience/Projects border */
+    transform: translateX(-50%);
+    width: auto;
+    bottom: auto;
+    pointer-events: none;
+}
+/* content stays above the floating astronaut (it drifts behind cards and rocks) */
+.exp-wrap { position: relative; z-index: 4; }
+.proj-wrap { position: relative; }
+
+/* ================= BLACK HOLE (CV page) ================= */
+/* Hidden in the bottom-right corner, only an edge peeks in. Nothing points
+   at it: visitors notice stars being pulled toward the corner. */
+.black-hole {
+    position: absolute;
+    z-index: 3;
+    display: block;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.6s cubic-bezier(.34,1.56,.64,1);
+}
+.black-hole:hover,
+.black-hole:focus-visible { transform: translate(-7%, -6%); }   /* peeks out a little more */
+.black-hole img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 25px rgba(255, 140, 90, 0.35));
+    animation: bh-float 6s ease-in-out infinite;
+    transition: transform 0.5s cubic-bezier(.34,1.56,.64,1), filter 0.4s;
+}
+.black-hole:hover img,
+.black-hole:focus-visible img {
+    transform: scale(1.07) rotate(-4deg);
+    filter: drop-shadow(0 0 45px rgba(255, 140, 90, 0.65));
+}
+.black-hole:focus-visible { outline: none; }
+.black-hole.pulling img {
+    transform: scale(1.6) rotate(30deg);
+    transition: transform 0.85s cubic-bezier(.6,0,.4,1);
+}
+@keyframes bh-float {
+    0%, 100% { translate: 0 0; }
+    50%      { translate: 0 -10px; }
+}
+@keyframes bh-wiggle {
+    0%, 85%, 100% { transform: rotate(0); }
+    90% { transform: rotate(-5deg); }
+    95% { transform: rotate(5deg); }
+}
+
+/* the "game" pop-up */
+.bh-panel { text-align: center; }
+.bh-title {
+    font-family: "Rubik Vinyl", sans-serif;
+    font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem);
+    color: #fff;
+    margin: 0.4rem 0 1rem;
+    line-height: 1.1;
+}
+.bh-bar {
+    height: 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+.bh-bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #ff7aa8, #ffb37a, #f1c40f);
+    border-radius: inherit;
+    transition: width 0.45s ease;
+}
+.bh-status { margin-top: 0.7rem; opacity: 0.8; }
+.bh-text { font-size: 1.1rem; line-height: 1.5; opacity: 0.9; }
+.bh-msg {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.7rem 0.9rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px dashed rgba(255, 255, 255, 0.25);
+    border-radius: 14px;
+    color: #fff;
+    font-family: "Schoolbell", sans-serif;
+    font-size: 1.05rem;
+    resize: vertical;
+}
+.bh-msg:focus { outline: none; border-color: #f1c40f; }
+.bh-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-top: 0.6rem; }
+.bh-wa {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.35rem 0.9rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+.bh-wa:hover { transform: translateY(-2px); }
+.bh-panel.glitch { animation: bh-glitch 0.45s steps(2) 1; }
+@keyframes bh-glitch {
+    0%   { transform: translate(0, 0); filter: hue-rotate(0); }
+    20%  { transform: translate(-6px, 2px) skewX(4deg); filter: hue-rotate(90deg); }
+    40%  { transform: translate(5px, -3px) skewX(-6deg); }
+    60%  { transform: translate(-3px, 1px); filter: hue-rotate(-60deg) saturate(2); }
+    80%  { transform: translate(4px, 0) skewX(3deg); }
+    100% { transform: translate(0, 0); filter: none; }
+}
+
+/* Portrait phones & tablets: peeks in from the right edge, between the moon and the title */
+@media (orientation: portrait) and (max-width: 991.98px) {
+    .black-hole { width: 62vw; right: -40vw; bottom: auto; top: 31%; }
+}
+/* Phones sideways: peeks in from the top-left corner */
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .black-hole { width: 30vw; right: auto; left: -16vw; bottom: auto; top: -11vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .black-hole img { animation: none; }
+}
+
+/* ================= PROJECTS ================= */
+.proj-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(94vw, 1150px);
+    height: 100vh;
+    height: 100svh;
+}
+.page4 .exp-head .title { font-size: clamp(1.9rem, 1rem + 3.4vw, 4.5rem); line-height: 1; }
+.proj-tools {
+    flex: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.proj-chips {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 100%;
+}
+.proj-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    color: #f4f4f4;
+    font-family: "Schoolbell", sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.proj-chip em { font-style: normal; font-size: 0.8rem; opacity: 0.65; }
+.proj-chip:hover { transform: translateY(-2px); border-color: rgba(241, 196, 15, 0.6); }
+.proj-chip.active { color: #1b1638; box-shadow: 3px 3px 0 rgba(0,0,0,.4); }
+.proj-chip.active em { opacity: 0.8; }
+
+/* ---- Orbit carousel ---- */
+.proj-stage {
+    position: relative;
+    min-height: 0;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    perspective: 1400px;
+    outline: none;     /* side cards only peek out */
+}
+/* dotted orbit the cards travel on */
+.proj-orbit-ring {
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    width: min(130vw, 1500px);
+    height: 38%;
+    transform: translate(-50%, -50%);
+    border: 2px dashed rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.proj-track {
+    position: relative;
+    width: var(--card-w);
+    height: var(--card-h);
+    transform-style: preserve-3d;
+    touch-action: pan-y;               /* vertical swipes keep scrolling the page */
+}
+.proj-card {
+    --d: 0;
+    --a: 0;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+    text-align: left;
+    background: #14163a;
+    border: 3px solid #1b1638;
+    border-radius: 22px;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45), inset 0 0 0 2px rgba(255, 255, 255, 0.07);
+    color: #f4f4f4;
+    font-family: "Schoolbell", sans-serif;
+    cursor: pointer;
+    user-select: none;
+    transform:
+        translateX(calc(var(--d) * var(--step)))
+        translateZ(calc(var(--a) * -120px))
+        rotateY(calc(var(--d) * -22deg))
+        scale(calc(1 - var(--a) * 0.1));
+    transition: transform 0.55s cubic-bezier(.22,1,.36,1), opacity 0.45s, filter 0.45s, box-shadow 0.3s;
+}
+.proj-card.is-far { opacity: 0; pointer-events: none; }
+.proj-card.is-current { box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.5), 0 0 40px rgba(142, 108, 241, 0.35), inset 0 0 0 2px rgba(255,255,255,.08); }
+.proj-card.is-current:hover,
+.proj-card.is-current:focus-visible {
+    outline: none;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.5), 0 0 50px rgba(241, 196, 15, 0.45), inset 0 0 0 2px rgba(241,196,15,.5);
+}
+.proj-card.is-award { border-color: #6b5410; }
+
+/* top half: picture or a planet on a nebula */
+.proj-art {
+    position: relative;
+    flex: 0 0 46%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-bottom: 3px solid #1b1638;
+    background:
+        radial-gradient(1.5px 1.5px at 20% 30%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 70% 20%, #fff 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 85% 65%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 35% 80%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 55% 45%, #fff 50%, transparent 51%),
+        var(--nebula);
+}
+.cat-0 { --nebula: radial-gradient(circle at 30% 30%, #6c4bd8 0%, #2a1d6b 45%, #0f1030 100%); }
+.cat-1 { --nebula: radial-gradient(circle at 70% 30%, #e0702a 0%, #6b2a3d 45%, #12102e 100%); }
+.cat-2 { --nebula: radial-gradient(circle at 30% 70%, #2f8fd1 0%, #1d3a6b 45%, #0c1230 100%); }
+.cat-3 { --nebula: radial-gradient(circle at 60% 40%, #1f9f7f 0%, #164a52 45%, #0c1a2a 100%); }
+.proj-art img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.proj-art.is-planet svg {
+    width: 62%;
+    height: auto;
+    max-height: 90%;
+    filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.5));
+    animation: exp-bob 5s ease-in-out infinite;
+}
+.proj-cat {
+    position: absolute;
+    left: 0.7rem;
+    top: 0.7rem;
+    padding: 0.15rem 0.6rem;
+    background: rgba(10, 10, 30, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    backdrop-filter: blur(3px);
+}
+.proj-award {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.7rem;
+    padding: 0.15rem 0.65rem;
+    background: #f1c40f;
+    color: #1b1638;
+    border: 2px solid #1b1638;
+    border-radius: 999px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,.4);
+    font-size: 0.9rem;
+    transform: rotate(-4deg);
+}
+/* bottom half: words */
+.proj-info {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.9rem 1.1rem 1rem;
+}
+.proj-status { font-size: 0.9rem; }
+.proj-title {
+    font-size: clamp(1.15rem, 1rem + 0.45vw, 1.4rem);
+    line-height: 1.2;
+    -webkit-box-orient: vertical;
+}
+.proj-open {
+    margin-top: auto;
+    font-size: 0.95rem;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+.proj-card.is-current .proj-open { transform: none; }
+
+.proj-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.proj-tag {
+    padding: 0.1rem 0.55rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+}
+.proj-tag.more { opacity: 0.6; }
+
+/* arrows + counter */
+.proj-nav {
+    flex: none;
+    align-items: center;
+    gap: 1.1rem;
+    margin-top: clamp(0.5rem, 2vh, 1.2rem);
+}
+.proj-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff;
+    color: #1b1638;
+    border: 3px solid #1b1638;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+.proj-btn:hover { transform: translateY(-2px) scale(1.06); background: #f1c40f; }
+.proj-btn:active { transform: translateY(1px); box-shadow: 1px 1px 0 rgba(0,0,0,.45); }
+.proj-meter { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; min-width: 110px; }
+.proj-count { font-family: "Schoolbell", sans-serif; color: #fff; font-size: 1.05rem; letter-spacing: 0.08em; }
+.proj-progress { width: 110px; height: 6px; border-radius: 999px; background: rgba(255,255,255,.15); overflow: hidden; }
+.proj-progress span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #c9b8ff, #f1c40f); border-radius: inherit; transition: width 0.45s; }
+.proj-stage.is-empty + .proj-nav { visibility: hidden; }
+.proj-empty {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(80vw, 420px);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 2rem 1rem;
+    font-family: "Schoolbell", sans-serif;
+    color: #f4f4f4;
+    opacity: 0.8;
+    font-size: 1.15rem;
+}
+/* project log extras */
+.proj-banner {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 2px solid #2e2a5c;
+    margin-top: 0.8rem;
+}
+.proj-log-title { margin-top: 0.8rem; padding-right: 1.5rem; font-size: clamp(1.3rem, 1.1rem + 0.9vw, 1.7rem); }
+.log-chip.gold { background: #f1c40f; color: #1b1638; border-color: #1b1638; }
+.log-tech { margin-top: 1rem; }
+.log-intro { margin-top: 0.9rem; line-height: 1.6; font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem); }
+.log-section {
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 2px dashed rgba(27, 22, 56, 0.18);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b8860b;
+}
+.log-section + .log-points, .log-section + .log-intro { margin-top: 0.55rem; padding-top: 0; border-top: 0; }
+.proj-links { justify-content: flex-start; }
+
+/* Rocket + guitar astronaut: starts bottom-left of Experience and flies right
+   (script.js moves it as you scroll). Boat astronaut: glides into Projects' bottom-left. */
+@keyframes rocket-bob { 0%, 100% { translate: 0 0; rotate: -3deg; } 50% { translate: 0 -12px; rotate: 2deg; } }
+@keyframes boat-rock  { 0%, 100% { rotate: -4deg; } 50% { rotate: 4deg; } }
+
+/* Phones: tabs scroll sideways in one line instead of wrapping */
+@media (max-width: 575.98px), (orientation: landscape) and (max-height: 575.98px) {
+    .proj-chips {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+    .proj-chips::-webkit-scrollbar { display: none; }
+    .proj-chip { font-size: 0.92rem; }
+}
+@media (orientation: portrait) and (max-height: 700px) {
+    .proj-stage { --card-h: clamp(260px, 50svh, 330px); }
+    .proj-btn { width: 42px; height: 42px; }
+}
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .page4 .exp-head .title { font-size: 1.8rem; }
+    .proj-tools { flex-direction: row; gap: 0.6rem; margin: 0.4rem 0; }
+    .proj-stage { --card-w: clamp(220px, 30vw, 280px); --card-h: 60svh; --step: calc(var(--card-w) * 0.5); }
+    .proj-art { flex-basis: 38%; }
+    .proj-info { padding: 0.5rem 0.8rem; gap: 0.25rem; }
+    .proj-tags, .proj-open { display: none; }
+    .proj-title { font-size: 1.05rem; -webkit-line-clamp: 2; }
+    .proj-nav { margin-top: 0.3rem; }
+    .proj-btn { width: 36px; height: 36px; font-size: 0.95rem; }
+}
+
+/* small coloured dot instead of emoji for each category */
+.cat-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 0.15rem;
+    border: 1.5px solid #1b1638;
+}
+.cat-dot.cat-0 { background: #a98bff; }
+.cat-dot.cat-1 { background: #ff9a52; }
+.cat-dot.cat-2 { background: #5db8ff; }
+.cat-dot.cat-3 { background: #3fd0a5; }
+.proj-chip.active .cat-dot { border-color: #1b1638; }
+
+/* Experience heading sits a little lower */
+.page3 .exp-head { padding-top: clamp(2rem, 10vh, 5.5rem); }
+@media (orientation: landscape) and (max-height: 575.98px) { .page3 .exp-head { padding-top: 0.8rem; } }
+@media (orientation: portrait) and (max-height: 700px) { .page3 .exp-head { padding-top: 1.5rem; } }
+
+/* CV page uses exactly the same layout as the home page; only the black hole is extra */
+/* black hole: tucked into the bottom-right corner on every screen */
+.black-hole {
+    left: auto !important;
+    top: auto !important;
+    right: calc(var(--bh-w) * -0.6) !important;
+    bottom: calc(var(--bh-w) * -0.3) !important;
+    width: var(--bh-w) !important;
+    --bh-w: clamp(240px, 30vw, 540px);
+}
+@media (orientation: portrait) and (max-width: 991.98px) { .black-hole { --bh-w: 62vw; } }
+@media (orientation: landscape) and (max-height: 575.98px) { .black-hole { --bh-w: 30vw; } }
+
+/* All three astronauts share one size: the star image is mostly star + string,
+   so the rocket (0.65×) and boat (0.58×) images are scaled to match its helmet. */
+.horizontal { --astro-h: clamp(260px, 60svh, 700px); }
+@media (orientation: portrait) and (max-width: 991.98px) { .horizontal { --astro-h: min(44svh, 88vw); } }
+@media (orientation: portrait) and (max-width: 575.98px) { .horizontal { --astro-h: min(36svh, 72vw); } }
+@media (orientation: landscape) and (max-height: 575.98px) { .horizontal { --astro-h: 62svh; } }
+
+/* ================= Projects: decluttered ================= */
+.proj-chip { padding: 0.22rem 0.75rem; font-size: 0.92rem; }
+.proj-tools { gap: 0.55rem; }
+.proj-card { opacity: calc(1 - var(--a) * 0.55); }
+
+/* Moon astronaut parked on Projects (bottom-left), and his flying copy */
+.proj-moon {
+    position: absolute;
+    left: auto;
+    right: 2vw;                    /* bottom-right corner of Projects */
+    bottom: 3vh;
+    width: auto;
+    height: var(--moon-h);
+    pointer-events: none;
+    animation: moon-bob 4s ease-in-out infinite;
+}
+@keyframes moon-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+.moon-traveller {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: auto;
+    z-index: 997;
+    pointer-events: none;
+    visibility: hidden;
+    will-change: transform, width;
+}
+.horizontal { --moon-h: clamp(150px, 27svh, 300px); }
+@media (orientation: landscape) and (max-height: 575.98px) { .horizontal { --moon-h: 30svh; } }
+@media (prefers-reduced-motion: reduce) { .proj-moon { animation: none; } }
+
+/* CV page: everything sits a little lower, the earth just peeks up */
+.page7 .astronaut-moon { top: 12%; }
+.page7 .message7 { top: 64%; }
+@media (orientation: portrait) and (max-width: 991.98px) {
+    .page7 .astronaut-moon { top: 12%; width: 58vw; max-width: 360px; height: auto; }
+    .page7 .message7 { top: 62%; }
+}
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .page7 .astronaut-moon { top: 22%; transform: none; height: 56%; width: auto; }
+    .page7 .message7 { top: 60%; }
+}
+
+/* ================= Readability: clean font for reading text ================= */
+/* Schoolbell stays for titles, role names and buttons; longer text uses Nunito */
+.content, .log-points, .log-intro, .log-chip, .log-empty, .proj-tag, .proj-status, .proj-chip, .proj-cat, .proj-count, .exp-org, .exp-when, .bh-text, .bh-msg, .bh-status, .music-toast-text {
+    font-family: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+.content { font-size: clamp(1rem, 0.95rem + 0.35vw, 1.2rem); line-height: 1.7; }
+.log-points { font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem); line-height: 1.6; }
+.proj-tag { font-size: 0.78rem; font-weight: 600; }
+.exp-when, .proj-status { font-size: 0.85rem; }
+
+/* ================= Mission logs on cream "logbook" paper ================= */
+.exp-modal-panel {
+    background:
+        repeating-linear-gradient(to bottom, transparent 0 31px, rgba(27, 22, 56, 0.05) 31px 32px),
+        #fbf3df;
+    color: #1b1638;
+    border-color: #1b1638;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.5), 0 0 60px rgba(241, 196, 15, 0.15);
+}
+.exp-modal-panel .exp-close { color: #1b1638; }
+.exp-modal-panel .log-tag { color: #a5720a; opacity: 1; }
+.exp-modal-panel .exp-role,
+.exp-modal-panel .proj-log-title { color: #3a2a8c; }
+.exp-modal-panel .exp-org { color: #1b1638; }
+.exp-modal-panel .log-chip,
+.exp-modal-panel .proj-tag {
+    background: rgba(27, 22, 56, 0.06);
+    border-color: rgba(27, 22, 56, 0.18);
+    color: #1b1638;
+}
+.exp-modal-panel .log-chip.gold { background: #f1c40f; border-color: #1b1638; }
+.exp-modal-panel .log-points,
+.exp-modal-panel .log-empty { border-top-color: rgba(27, 22, 56, 0.2); color: #2a2448; }
+.exp-modal-panel .log-points li::before { color: #e0a400; }
+.exp-modal-panel .proj-banner { border-color: #1b1638; }
+.exp-modal-panel .log-nav button {
+    background: #fff;
+    border: 2px solid #1b1638;
+    color: #1b1638;
+}
+.exp-modal-panel .log-nav button:hover { background: #f1c40f; }
+.exp-modal-panel .log-count { color: #1b1638; opacity: 0.6; }
+/* game pop-up on the same paper */
+.exp-modal-panel .bh-title { color: #1b1638; }
+.exp-modal-panel .bh-bar { background: rgba(27, 22, 56, 0.08); border-color: rgba(27, 22, 56, 0.2); }
+.exp-modal-panel .bh-text, .exp-modal-panel .bh-status { color: #2a2448; }
+.exp-modal-panel .bh-msg { background: #fff; border-color: rgba(27, 22, 56, 0.3); color: #1b1638; }
+.exp-modal-panel .bh-msg::placeholder { color: rgba(27, 22, 56, 0.45); }
+.exp-modal-panel .bh-wa { background: #fff; color: #1b1638; border-color: #1b1638; }
+
+/* Smaller star astronaut */
+.page3 .astronaut-star { height: calc(var(--astro-h) * 0.72); }
+
+/* ================= Twinkling star layer (Home, About, CV) ================= */
+.twinkle-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.tw {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: tw-twinkle 3s ease-in-out infinite;
+}
+.tw-sparkle { border-radius: 0; }
+@keyframes tw-twinkle {
+    0%, 100% { opacity: 0.12; transform: scale(0.55) rotate(0deg); }
+    50%      { opacity: 1;    transform: scale(1.15) rotate(25deg); }
+}
+@media (prefers-reduced-motion: reduce) { .tw { animation: none; } }
+
+/* ================= Boat astronaut zooming in on Projects ================= */
+.proj-boat {
+    position: absolute;
+    left: calc(100vw + 2vw);
+    bottom: 2vh;
+    width: auto;
+    height: calc(var(--moon-h) * 0.95);
+    pointer-events: none;
+    transform-origin: 50% 100%;
+}
+@media (prefers-reduced-motion: reduce) { .proj-boat { animation: none; } }
+
+/* ================= Project cards: postcard style (dark picture, cream words) ================= */
+.proj-info {
+    background:
+        repeating-linear-gradient(to bottom, transparent 0 25px, rgba(27, 22, 56, 0.05) 25px 26px),
+        #fbf3df;
+    color: #1b1638;
+}
+.proj-art { border-bottom-color: #1b1638; }
+.proj-status { color: #7a5fc0; font-weight: 600; }
+.proj-title { color: #3a2a8c; }
+.proj-info .proj-tag { background: rgba(27, 22, 56, 0.06); border-color: rgba(27, 22, 56, 0.18); color: #1b1638; }
+.proj-open { color: #1b1638; }
+.proj-card.is-current .proj-open { opacity: 0.75; }
+
+/* boat sails out from behind the carousel */
+.proj-boat { z-index: 1; }
+/* full project titles, never cut off */
+.proj-title { -webkit-line-clamp: unset !important; display: block !important; overflow: visible !important; }
+.proj-title.is-long { font-size: clamp(1rem, 0.9rem + 0.3vw, 1.18rem); }
+@media (orientation: landscape) and (max-height: 575.98px) { .proj-title.is-long { font-size: 0.92rem; } }
+/* star astronaut rises in front of the asteroid belt */
+.page3 .astronaut-star { z-index: 5; }
+
+/* side cards sit blurred in the background */
+.proj-card { filter: blur(calc(var(--a) * 3px)) saturate(calc(1 - var(--a) * 0.25)) brightness(calc(1 - var(--a) * 0.18)); }
+/* category tabs: only the selected one stands out */
+.proj-chip { background: transparent; border-color: rgba(255,255,255,.12); opacity: 0.45; transition: opacity .2s, background .2s, border-color .2s, transform .2s; }
+.proj-chip:hover { opacity: 0.85; }
+.proj-chip.active { opacity: 1; background: #f1c40f; border-color: #1b1638; }
+
+/* =====================================================================
+   RESPONSIVE FIXES (full device sweep)
+   ===================================================================== */
+
+/* Projects UI always above the passing star astronaut */
+.proj-wrap { z-index: 6; }
+
+/* ---- Tablets held upright (Fold open, iPad mini, iPad: 576–991px) ---- */
+@media (min-width: 576px) and (max-width: 991.98px) and (orientation: portrait) {
+    .title { font-size: clamp(2.8rem, 7.5vw, 4.2rem); }
+    .content1, .download { font-size: clamp(1.4rem, 3.2vw, 1.9rem); }
+    /* home + CV: smaller moon, earth only peeks up */
+    .page1 .astronaut-moon,
+    .page7 .astronaut-moon { top: 6%; width: min(46vw, 32svh); max-width: none; height: auto; }
+    .page1 .message, .page7 .message7 { top: 58%; }
+    .earth, .earth7 { width: 80vw; height: auto; bottom: -50vw; min-width: 0; }
+    /* about: moon sits lower so the paragraph stays clear */
+    .black-moon { width: 56vw; height: auto; bottom: -32vw; }
+    .page2 .content { font-size: clamp(1.05rem, 2.4vw, 1.3rem); }
+    /* experience */
+    .exp-guide .astronaut-laptop { max-height: 19svh; }
+    .exp-planet { width: clamp(60px, 11vw, 88px); }
+    .exp-asteroids { --belt-h: clamp(56px, 9svh, 110px); }
+    /* projects: wider card, one-line scrolling tabs, smaller corner astronauts */
+    .proj-stage { --card-w: min(54vw, 380px); --card-h: clamp(320px, 46svh, 480px); --step: calc(var(--card-w) * 0.4); }
+    .proj-chips { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; width: 100%; scrollbar-width: none; }
+    .proj-chips::-webkit-scrollbar { display: none; }
+    .horizontal { --moon-h: 14svh; }
+}
+
+/* ---- Phones upright ---- */
+@media (orientation: portrait) and (max-width: 575.98px) {
+    .horizontal { --moon-h: 11svh; }
+    .proj-moon { right: -6vw; bottom: -2vh; }
+    .proj-boat { left: calc(100vw - 4vw); bottom: -2vh; }
+    .proj-meter { min-width: 80px; }
+    .proj-progress { width: 80px; }
+    .proj-nav { gap: 0.7rem; }
+    .page7 .message7 { top: 60%; }
+}
+/* short phones: garland lower profile so it clears the About title */
+@media (orientation: portrait) and (max-height: 700px) {
+    .star-garland { height: 11svh; }
+}
+
+/* ---- Phones sideways ---- */
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .page1 .astronaut-moon { width: 25%; top: 22%; }
+}
+
+/* ================= SKILLS PAGE: field of soft pills ================= */
+.page-skills {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    overflow: clip;
+    background: url('assets/images/background.webp') center / cover;
+}
+.skills-wrap { position: absolute; inset: 0; z-index: 2; }
+.skills-title {
+    position: absolute;
+    left: 0; right: 0;
+    top: clamp(1rem, 4vh, 2.5rem);
+    text-align: center;
+    font-size: clamp(2rem, 1rem + 3.4vw, 4.5rem);
+    line-height: 1;
+    pointer-events: none;
+}
+.skills-centre { position: absolute; left: 50%; pointer-events: none; }
+.skills-moon {
+    display: block;
+    width: auto;
+    animation: moon-bob 4s ease-in-out infinite;
+}
+.skill-field { position: absolute; inset: 0; }
+
+/* category colours */
+.cat-c0 { --c: #a98bff; } .cat-c1 { --c: #ff9a52; } .cat-c2 { --c: #5db8ff; }
+.cat-c3 { --c: #3fd0a5; } .cat-c4 { --c: #ff8fb1; } .cat-c5 { --c: #f1c40f; }
+
+.sp-wrap {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: calc(var(--k) * 35ms);
+    animation: sp-drift 8s ease-in-out infinite;
+}
+.page-skills.lit .sp-wrap { opacity: 1; transform: none; }
+@keyframes sp-drift { 0%, 100% { translate: 0 0; } 33% { translate: 4px -5px; } 66% { translate: -4px 3px; } }
+
+.skill-pill {
+    --glow: 0;
+    display: block;
+    padding: 0.32rem 0.85rem;
+    border-radius: 999px;
+    border: 1.5px solid color-mix(in srgb, var(--c) 55%, transparent);
+    color: #fff;
+    font-family: "Nunito", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.82rem, 0.7rem + 0.35vw, 1.05rem);
+    white-space: nowrap;
+    cursor: default;
+    transform: scale(calc(1 + var(--glow) * 0.06));
+    transition: opacity 0.18s linear, box-shadow 0.18s linear, background 0.18s linear, transform 0.18s linear;
+}
+.skill-pill:hover, .skill-pill:focus-visible, .skill-pill.tapped {
+    --glow: 1 !important;
+    opacity: 1;
+    background: color-mix(in srgb, var(--c) 32%, transparent);
+    outline: none;
+}
+
+/* legend along the bottom */
+.skill-legend {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(0.8rem, 3vh, 2rem);
+    transform: translateX(-50%);
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.1rem;
+    width: max-content;
+    max-width: 94vw;
+    font-family: "Nunito", system-ui, sans-serif;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+}
+.skill-legend span { display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; }
+.skill-legend i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 6px var(--c); }
+
+/* Phones */
+@media (max-width: 575.98px) {
+    .skill-pill { font-size: 0.72rem; padding: 0.24rem 0.6rem; }
+    .skill-legend { font-size: 0.68rem; gap: 0.25rem 0.7rem; }
+}
+@media (orientation: portrait) and (max-height: 700px) {
+    .skill-pill { font-size: 0.64rem; padding: 0.2rem 0.5rem; }
+    .skills-title { font-size: 1.8rem; }
+}
+/* Tablets upright */
+@media (orientation: portrait) and (min-width: 576px) and (max-width: 991.98px) {
+    .skill-pill { font-size: clamp(0.85rem, 1.9vw, 1.05rem); }
+}
+/* Phones sideways */
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .skills-title { font-size: 1.6rem; top: 0.4rem; }
+    .skill-pill { font-size: 0.68rem; padding: 0.2rem 0.55rem; }
+    .skill-legend { font-size: 0.64rem; bottom: 0.4rem; gap: 0.2rem 0.7rem; }
+}
+@media (prefers-reduced-motion: reduce) { .skills-moon, .sp-wrap { animation: none; } .sp-wrap { transition: none; } }
+@media (max-width: 359.98px) { .skill-pill { font-size: 0.6rem; padding: 0.18rem 0.45rem; } .skills-moon { height: 15svh; } }
+.page-skills.tight .skill-pill { font-size: 0.56rem; padding: 0.16rem 0.4rem; }
+.page-skills.tight .skill-legend { gap: 0.15rem 0.5rem; font-size: 0.58rem; }
+
+/* ================= Projects: arrows beside the carousel ================= */
+.proj-stage .proj-btn {
+    position: absolute;
+    top: 50%;
+    z-index: 30;
+    transform: translateY(-50%);
+}
+.proj-stage .proj-prev { left: max(6px, calc(50% - var(--card-w) / 2 - var(--step) - 30px)); }
+.proj-stage .proj-next { right: max(6px, calc(50% - var(--card-w) / 2 - var(--step) - 30px)); }
+.proj-stage .proj-btn:hover { transform: translateY(-50%) scale(1.08); }
+.proj-stage .proj-btn:active { transform: translateY(-50%) scale(0.96); }
+
+/* ================= Skills: moon on top, title under it (like Home) ================= */
+.skills-moon { height: clamp(150px, 34svh, 340px); }
+@media (max-width: 575.98px) {
+    .skills-moon { height: clamp(120px, 22svh, 200px); }
+}
+@media (orientation: portrait) and (min-width: 576px) and (max-width: 991.98px) {
+    .skills-moon { height: clamp(170px, 24svh, 300px); }
+}
+@media (orientation: portrait) and (max-height: 700px) {
+    .skills-moon { height: 17svh; }
+}
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .skills-moon { height: 38svh; }
+}
+
+/* ================= MILESTONES strip ================= */
+.page-milestones {
+    position: relative;               /* no z-index on purpose: the flying moon slips between its background and the cards */
+    overflow: hidden;
+    overflow: clip;
+}
+.page-milestones::before {
+    content: "";
+    position: absolute;
+}
+.moon-traveller.behind { z-index: 1; }
+.ms-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.ms-strip {
+    width: 100%;
+    overflow: hidden;
+}
+.ms-track {
+    display: flex;
+    gap: clamp(14px, 1.6vw, 26px);
+    width: max-content;
+}
+.ms-strip:hover .ms-track { animation-play-state: paused; }
+@keyframes ms-flow { from { transform: translateX(-50%); } to { transform: translateX(0); } }   /* left → right */
+.ms-card {
+    flex: none;
+    height: var(--h);
+    width: calc(var(--h) * 0.8);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 3px solid #1b1638;
+    border-radius: 20px;
+    background: #fbf3df;
+    transition: transform 0.3s;
+}
+.ms-card:hover { transform: translateY(-6px) rotate(-1deg); }
+.ms-edu  { width: calc(var(--h) * 1.05); }
+.ms-cert { width: calc(var(--h) * 0.85); }
+.ms-art {
+    flex: 0 0 52%;
+    display: grid;
+    place-items: center;
+    border-bottom: 3px solid #1b1638;
+    background:
+        radial-gradient(1.5px 1.5px at 20% 30%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 75% 20%, #fff 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 85% 70%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 35% 80%, #fff 50%, transparent 51%),
+        var(--neb);
+}
+.ms-edu  .ms-art { --neb: radial-gradient(circle at 30% 30%, #2f8fd1, #1d3a6b 50%, #0c1230); }
+.ms-ach  .ms-art { --neb: radial-gradient(circle at 60% 35%, #8e6cf1, #2a1d6b 50%, #0f1030); }
+.ms-cert .ms-art { --neb: radial-gradient(circle at 40% 40%, #1f9f7f, #164a52 50%, #0c1a2a); }
+.ms-art svg { width: 46%; max-height: 78%; filter: drop-shadow(0 8px 10px rgba(0,0,0,.5)); }
+.ms-edu .ms-art svg { width: 34%; }
+.ms-tag {
+    position: absolute;
+    left: 0.7rem; top: 0.7rem;
+    padding: 0.12rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(10, 10, 30, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-family: "Nunito", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.ms-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: #1b1638;
+    background: repeating-linear-gradient(to bottom, transparent 0 25px, rgba(27, 22, 56, 0.05) 25px 26px), #fbf3df;
+}
+.ms-sub  { font-family: "Nunito", sans-serif; }
+.ms-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: auto; }
+.ms-chip {
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(27, 22, 56, 0.06);
+    border: 1px solid rgba(27, 22, 56, 0.18);
+    font-family: "Nunito", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.ms-ach .ms-chip { background: #f1c40f; border-color: #1b1638; }
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .ms-wrap { gap: 0.5rem; }
+    .ms-info { padding: 0.4rem 0.7rem; gap: 0.15rem; }
+    .ms-name { font-size: 0.95rem; }
+    .ms-sub { font-size: 0.7rem; }
+}
+@media (prefers-reduced-motion: reduce) { .ms-track { animation: none; } .ms-strip { overflow-x: auto; } }
+
+/* ================= Milestones: a yellow band, not a page ================= */
+.page-milestones { height: auto; }
+.page-milestones::before {
+    border-top: 3px solid #1b1638;
+    border-bottom: 3px solid #1b1638;
+}
+.ms-wrap { height: auto; }
+.ms-strip { -webkit-mask-image: none; mask-image: none; }
+.ms-card { box-shadow: 6px 6px 0 #1b1638; }
+/* real certificate pictures on the certificate cards */
+.ms-cert .ms-art { overflow: hidden; }
+.ms-cert .ms-art img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.ms-cert .ms-tag { z-index: 1; }
+@media (orientation: landscape) and (max-height: 575.98px) { .ms-wrap { padding: 0.8rem 0; } }
+
+/* ================= Milestones band: tilted sticker ribbon ================= */
+.page-milestones {
+    background: url('assets/images/background.webp') center / cover;   /* space behind the tilted band */
+    padding: clamp(2.4rem, 7vh, 4rem) 0;
+}
+.page-milestones::before {                 /* purple ribbon peeking out behind, tilted the other way */
+    inset: auto;
+    left: -5vw; right: -5vw;
+    top: 50%; height: 62%;
+    transform: translateY(-50%) rotate(2.2deg);
+    background: #6c4bd8;
+    border: 3px solid #1b1638;
+    z-index: 2;
+}
+.ms-wrap {                                  /* the yellow ribbon itself, carrying the cards */
+    z-index: 3;
+    width: 110vw;
+    margin-left: -5vw;
+    padding: clamp(1.3rem, 3.5vh, 2rem) 0 clamp(1rem, 3vh, 1.6rem);
+    background: #FEDC1F;
+    border-top: 3px solid #1b1638;
+    border-bottom: 3px solid #1b1638;
+    transform: rotate(-2deg);
+    box-shadow: 0 10px 0 rgba(0, 0, 0, 0.35);
+    gap: 0;
+}
+.ms-track { --h: clamp(220px, 36svh, 320px); animation: none; }
+.ms-strip { cursor: grab; touch-action: pan-y; user-select: none; padding: 8px 0 12px; }
+.ms-strip:active { cursor: grabbing; }
+.ms-card { cursor: pointer; }
+.ms-card img { pointer-events: none; -webkit-user-drag: none; }
+.ms-card:focus-visible { outline: 3px solid #1b1638; outline-offset: 3px; }
+/* label tab stuck on the ribbon's top-left */
+.ms-tab {
+    position: absolute;
+    left: calc(5vw + clamp(0.8rem, 3vw, 2.5rem));
+    top: 0;
+    transform: translateY(-62%) rotate(-1deg);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+    padding: 0.35rem 0.95rem 0.4rem;
+    background: #1b1638;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+.ms-tab-title { color: #FEDC1F; font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.6rem); line-height: 1.05; }
+.ms-tab-sub { font-family: "Nunito", sans-serif; color: rgba(255, 255, 255, 0.75); font-size: clamp(0.62rem, 0.58rem + 0.2vw, 0.78rem); letter-spacing: 0.04em; }
+/* pop-up art */
+.ms-modal-art {
+    margin-top: 0.8rem;
+    border: 3px solid #1b1638;
+    border-radius: 14px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    min-height: 140px;
+    max-height: 52svh;
+    background: radial-gradient(circle at 60% 35%, #8e6cf1, #2a1d6b 50%, #0f1030);
+}
+.ms-modal-art.ms-edu { background: radial-gradient(circle at 30% 30%, #2f8fd1, #1d3a6b 50%, #0c1230); }
+.ms-modal-art.ms-cert { background: #e9e4d6; }
+.ms-modal-art svg { width: 120px; height: auto; margin: 1.2rem; }
+.ms-modal-art img { width: 100%; height: auto; max-height: 52svh; object-fit: contain; display: block; }
+@media (orientation: landscape) and (max-height: 575.98px) { .ms-track { --h: 58svh; } .page-milestones { padding: 1.6rem 0; } }
+
+.ms-art { flex-basis: 50%; }
+.ms-info { padding: 0.65rem 0.9rem; }
+.ms-card::after { content: "Tap to open ↗"; position: absolute; right: 0.7rem; bottom: 0.55rem; font-family: "Nunito", sans-serif; font-size: 0.68rem; font-weight: 700; color: #1b1638; opacity: 0; transition: opacity .2s; }
+.ms-card { position: relative; }
+.ms-card:hover::after { opacity: 0.6; }
+
+/* ================= Projects: cleaner ================= */
+.proj-orbit-ring { display: none; }             /* no dashed orbit line */
+.proj-nav { display: none; }                    /* no counter under the carousel */
+.proj-tools { margin-bottom: 0.4rem; }
+.proj-chips { position: relative; display: block; width: auto; overflow: visible; }
+.proj-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.85rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: "Nunito", system-ui, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+.proj-filter-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.35); }
+.proj-filter-btn svg { width: 15px; height: 15px; }
+.proj-filter-btn .caret { font-size: 0.7rem; opacity: 0.7; transition: transform 0.2s; }
+.proj-chips.open .caret { transform: rotate(180deg); }
+.proj-filter-menu {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 6px);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    min-width: 210px;
+    padding: 0.35rem;
+    background: rgba(18, 20, 42, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -4px);
+    transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+}
+.proj-chips.open .proj-filter-menu { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.proj-filter-menu .proj-chip {
+    justify-content: space-between;
+    width: 100%;
+    opacity: 1;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.85);
+    box-shadow: none;
+    transform: none;
+}
+.proj-filter-menu .proj-chip:hover { background: rgba(255, 255, 255, 0.07); }
+.proj-filter-menu .proj-chip.active { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.proj-filter-menu .proj-chip.active::after { content: "✓"; margin-left: 0.4rem; }
+.proj-filter-menu .proj-chip em { margin-left: auto; padding-left: 0.6rem; }
+
+/* ================= Skills: moon in the middle, title just below, no legend ================= */
+.skill-legend { display: none; }
+.skills-centre { top: 50%; transform: translate(-50%, -58%); }
+.skills-title { top: calc(50% + clamp(150px, 34svh, 340px) * 0.42 + 0.8rem); }
+@media (max-width: 575.98px) { .skills-title { top: calc(50% + clamp(120px, 22svh, 200px) * 0.42 + 0.6rem); } }
+@media (orientation: portrait) and (min-width: 576px) and (max-width: 991.98px) { .skills-title { top: calc(50% + clamp(170px, 24svh, 300px) * 0.42 + 0.7rem); } }
+@media (orientation: portrait) and (max-height: 700px) { .skills-title { top: calc(50% + 17svh * 0.42 + 0.5rem); } }
+@media (max-width: 359.98px) { .skills-title { top: calc(50% + 15svh * 0.42 + 0.5rem); } }
+@media (orientation: landscape) and (max-height: 575.98px) { .skills-centre { top: 50%; } .skills-title { top: calc(50% + 38svh * 0.42 + 0.3rem); } }
+
+/* ================= Milestones: cleaner type ================= */
+.ms-tab-title { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; letter-spacing: 0.01em; }
+.ms-name { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; color: #1b1638; font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.12rem); line-height: 1.2; }
+.ms-sub { color: #5a5470; font-size: 0.8rem; }
+.ms-issuer {
+    font-family: "Nunito", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.3rem);
+    color: #fff;
+    letter-spacing: -0.01em;
+    text-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+}
+.ms-cert .ms-art { background: radial-gradient(circle at 40% 40%, #1f9f7f, #164a52 50%, #0c1a2a); }
+.ms-cert .ms-art:has(img) { background: #e9e4d6; }
+.ms-modal-art .ms-issuer { margin: 2.4rem; font-size: 2.6rem; }
+.ms-modal .exp-role { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; color: #1b1638; }
+.ms-name { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+.ms-sub  { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+@media (max-width: 359.98px), (orientation: landscape) and (max-height: 575.98px) {
+    .ms-art { flex-basis: 42%; }
+    .ms-name { -webkit-line-clamp: 2; font-size: 0.88rem; }
+    .ms-sub { -webkit-line-clamp: 1; }
+}
+
+/* ================= Skills: stronger glow ================= */
+.skill-pill {
+    opacity: calc(0.62 + var(--glow) * 0.38);
+    border-color: color-mix(in srgb, var(--c) 80%, transparent);
+    background: color-mix(in srgb, var(--c) calc(12% + var(--glow) * 26%), transparent);
+    box-shadow: 0 0 calc(8px + var(--glow) * 26px) color-mix(in srgb, var(--c) calc(45% + var(--glow) * 45%), transparent),
+                inset 0 0 calc(4px + var(--glow) * 8px) color-mix(in srgb, var(--c) 35%, transparent);
+    text-shadow: 0 0 calc(var(--glow) * 10px) color-mix(in srgb, var(--c) 90%, transparent);
+}
+.skill-pill:hover, .skill-pill:focus-visible, .skill-pill.tapped {
+    box-shadow: 0 0 34px color-mix(in srgb, var(--c) 95%, transparent), inset 0 0 12px color-mix(in srgb, var(--c) 45%, transparent);
+}
+
+/* ================= Projects: title, filter and carousel centred as one block ================= */
+.proj-wrap { justify-content: center; padding-top: clamp(3.5rem, 8vh, 5rem); padding-bottom: clamp(1.5rem, 5vh, 3rem); }
+.proj-stage { flex: none; height: calc(var(--card-h) + 3rem); }
+.proj-tools { margin: clamp(0.6rem, 2vh, 1.2rem) 0 clamp(0.4rem, 1.5vh, 1rem); }
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .proj-wrap { padding-top: 0.6rem; padding-bottom: 0.4rem; }
+    .proj-stage { height: calc(var(--card-h) + 1rem); }
+}
+
+/* ================= Scroll hint (Home) ================= */
+.scroll-hint {
+    position: absolute;
+    left: 50%;
+    bottom: calc(20px + 30px + 1.4rem);      /* just above the social icons */
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    pointer-events: none;
+    transition: opacity 0.4s, transform 0.4s;
+}
+.scroll-hint.gone { opacity: 0; transform: translate(-50%, 10px); }
+.sh-mouse {
+    width: 22px;
+    height: 34px;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+}
+.sh-mouse i { width: 3px; height: 7px; border-radius: 2px; background: #f1c40f; animation: sh-wheel 1.6s ease-in-out infinite; }
+@keyframes sh-wheel { 0% { opacity: 0; transform: translateY(-3px); } 30% { opacity: 1; } 80% { opacity: 0; transform: translateY(8px); } 100% { opacity: 0; } }
+.sh-text { font-family: "Nunito", sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+@media (orientation: landscape) and (max-height: 575.98px) { .sh-text { display: none; } .scroll-hint { bottom: calc(20px + 30px + 0.6rem); } }
+@media (prefers-reduced-motion: reduce) { .sh-mouse i { animation: none; } }
+
+/* ================= CV: real button + let's connect ================= */
+.cv-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+    padding: 0.55rem 1.3rem;
+    background: #f1c40f;
+    color: #1b1638 !important;
+    border: 3px solid #1b1638;
+    border-radius: 999px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+    font-family: "Nunito", system-ui, sans-serif !important;
+    font-weight: 800;
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem) !important;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.cv-btn svg { width: 1.15em; height: 1.15em; }
+.cv-btn:hover { transform: translateY(-2px); box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5); }
+.cv-btn:active { transform: translateY(1px); box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5); }
+.message7 { display: flex; flex-direction: column; align-items: center; }
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .page7 .title { font-size: 1.8rem; }
+    .cv-btn { padding: 0.35rem 1rem; font-size: 0.9rem !important; }
+    .message7 { gap: 0.3rem; }
+}
+
+/* ================= Skills that link to projects ================= */
+.skill-pill.has-projects { cursor: pointer; }
+.skill-pill.has-projects::after {
+    content: " →";
+    display: inline-block;
+    max-width: 0;
+    overflow: hidden;
+    vertical-align: bottom;
+    transition: max-width 0.25s;
+}
+.skill-pill.has-projects:hover::after, .skill-pill.has-projects:focus-visible::after { max-width: 1.5em; }
+
+/* ================= Black-hole game: cleaner fonts ================= */
+.bh-panel, .bh-panel .log-tag, .bh-panel .bh-text, .bh-panel .bh-status, .bh-panel .bh-msg, .bh-panel .log-cert, .bh-panel .bh-wa {
+    font-family: "Nunito", system-ui, sans-serif;
+}
+.bh-panel .log-tag { font-weight: 800; letter-spacing: 0.2em; font-size: 0.78rem; }
+.bh-panel .bh-title { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; letter-spacing: -0.01em; font-size: clamp(1.7rem, 1.3rem + 1.6vw, 2.4rem); color: #1b1638; }
+.bh-panel .bh-text { font-size: 1rem; line-height: 1.6; }
+.bh-panel .log-cert, .bh-panel .bh-wa { font-weight: 800; font-size: 0.92rem; }
+
+/* "Let's connect" sits above the CV page's social icons, on the earth */
+.message7 { gap: 0.6rem; }
+@media (orientation: landscape) and (max-height: 575.98px) { .scroll-hint { display: none; } }
+
+/* ================= CV: hand-drawn arrow pointing at the social icons ================= */
+.cv-arrow {
+    position: absolute;
+    z-index: 3;
+    left: calc(50% - 60px - clamp(90px, 9vw, 140px));
+    bottom: calc(20px + 6px);
+    width: clamp(90px, 9vw, 140px);
+    height: auto;
+    overflow: visible;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+    animation: arrow-nudge 2.4s ease-in-out infinite;
+}
+.cv-arrow path { fill: none; stroke: #f1c40f; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.cv-arrow-line { stroke-dasharray: 260; stroke-dashoffset: 260; transition: stroke-dashoffset 1.1s ease 0.3s; }
+.cv-arrow-head { stroke-dasharray: 60; stroke-dashoffset: 60; transition: stroke-dashoffset 0.35s ease 1.35s; }
+.cv-arrow.drawn .cv-arrow-line, .cv-arrow.drawn .cv-arrow-head { stroke-dashoffset: 0; }
+@keyframes arrow-nudge { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(5px, 3px); } }
+@media (max-width: 575.98px) { .cv-arrow { width: 72px; left: calc(50% - 56px - 72px); } }
+@media (prefers-reduced-motion: reduce) { .cv-arrow { animation: none; } .cv-arrow path { stroke-dashoffset: 0; transition: none; } }
+
+/* ================= Badge art on milestone cards ================= */
+.ms-cert .ms-art:has(.ms-badge) { background: radial-gradient(circle at 50% 40%, #8e6cf1, #2a1d6b 55%, #0f1030); }
+.ms-art .ms-badge { width: auto !important; object-fit: contain !important; filter: drop-shadow(0 8px 12px rgba(0,0,0,.5)); }
+.ms-modal-art:has(.ms-badge) { background: radial-gradient(circle at 50% 40%, #8e6cf1, #2a1d6b 55%, #0f1030); }
+.ms-modal-art .ms-badge { width: auto !important; max-width: 70%; height: auto; max-height: 40svh; margin: 1.2rem auto; }
+
+/* ================= Centring that survives layout changes =================
+   The animation library rewrites `transform` and locks in whatever centring it saw
+   at load, so these four are centred with layout instead: an extra-wide positioning
+   box plus auto margins. Layout changes (rotating, resizing) re-centre them for free. */
+.page1 .earth, .page7 .earth7, .page1 .astronaut-moon, .page7 .astronaut-moon {
+    transform: none;
+    left: -50%;
+    right: -50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .page1 .earth, .page7 .earth7 { left: 0; right: -100%; }               /* earth sits on the right edge */
+    .page1 .astronaut-moon { left: 2%; right: auto; margin: 0; }
+    .page7 .astronaut-moon { left: 4%; right: auto; margin: 0; }
+}
+
+/* ================= White glow on the social icons (Home + CV) ================= */
+.social-icon img, .page7 .social-icon img {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.6)) !important;
+}
+.social-icon img:hover {
+    filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 20px rgba(255, 255, 255, 0.85)) !important;
+}
+
+/* ================= Rounded scrollbars in the pop-ups ================= */
+.exp-modal-panel {
+    scrollbar-width: thin;
+    scrollbar-color: #c9b98f transparent;
+}
+.exp-modal-panel::-webkit-scrollbar { width: 10px; }
+.exp-modal-panel::-webkit-scrollbar-track { background: transparent; margin: 22px 0; }   /* keeps clear of the rounded corners */
+.exp-modal-panel::-webkit-scrollbar-thumb {
+    background: #c9b98f;
+    border-radius: 999px;
+    border: 3px solid #fbf3df;
+}
+.exp-modal-panel::-webkit-scrollbar-thumb:hover { background: #a5720a; }
+
+.ms-art .ms-badge { height: 86% !important; border-radius: 10px; border: 2px solid #1b1638; }
+.ms-modal-art .ms-badge { border-radius: 12px; border: 3px solid #1b1638; }
+
+/* square badges, shown whole */
+.ms-cert .ms-art img.ms-badge, .ms-art .ms-badge { aspect-ratio: 1 / 1; max-width: 90%;
+    object-fit: contain !important; object-position: center !important;
+}
+.ms-modal-art img.ms-badge { width: min(70%, 300px) !important; height: auto !important; aspect-ratio: 1 / 1; max-height: none; }
+.ms-cert .ms-art img.ms-badge, .ms-art .ms-badge { height: calc(var(--h) * 0.4) !important; width: calc(var(--h) * 0.4) !important; }
+@media (max-width: 359.98px), (orientation: landscape) and (max-height: 575.98px) { .ms-cert .ms-art img.ms-badge, .ms-art .ms-badge { height: calc(var(--h) * 0.34) !important; width: calc(var(--h) * 0.34) !important; } }
+
+/* ================= Logos & photos on milestone cards ================= */
+.ms-art:has(.ms-photo), .ms-art:has(.ms-logo-tile) { background: #14163a; overflow: hidden; }
+.ms-art .ms-photo { position: absolute; inset: 0; width: 100% !important; height: 100% !important; max-height: none !important; object-fit: cover; filter: none; }
+.ms-logo-tile { place-items: center;
+    border-radius: 12px; border: 2px solid #1b1638;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.35);
+}
+.ms-art .ms-logo-tile img.ms-logo { object-fit: contain !important; filter: none; }
+.ms-art .ms-tag { z-index: 2; }
+.ms-modal-art .ms-photo { width: 100%; height: auto; max-height: 52svh; object-fit: cover; display: block; }
+.ms-modal-art .ms-logo-tile { width: min(80%, 420px); height: auto; aspect-ratio: 16 / 9; margin: 1.4rem auto; }
+.ms-modal-art .ms-logo-tile img { width: 100%; height: 100%; object-fit: contain; }
+.ms-logo-tile { box-sizing: border-box; width: 84%; height: 74%; padding: 6% 8%; }
+.ms-art { position: relative; }
+/* the card top's height comes from flex, so size the tile from the card height directly */
+.ms-art .ms-logo-tile { height: calc(var(--h) * 0.36); width: 84%; }
+@media (max-width: 359.98px), (orientation: landscape) and (max-height: 575.98px) { .ms-art .ms-logo-tile { height: calc(var(--h) * 0.3); } }
+.ms-art .ms-logo-tile { overflow: hidden; }
+.ms-art .ms-logo-tile img.ms-logo { width: auto !important; height: auto !important; }
+@media (max-width: 359.98px), (orientation: landscape) and (max-height: 575.98px) { .ms-art .ms-logo-tile img.ms-logo { max-height: calc(var(--h) * 0.3 - 1rem) !important; } }
+
+/* =====================================================================
+   PHONE PASS (≤575px wide)
+   ===================================================================== */
+@media (max-width: 575.98px) {
+    /* Projects: no boat, a smaller star astronaut, one clean card with arrows beside it */
+    .proj-boat { display: none !important; }
+    .page3 .astronaut-star { height: min(30svh, 60vw); }
+    .proj-stage { --step: calc(var(--card-w) * 0.35); }
+    .proj-card:not(.is-current) { opacity: 0; pointer-events: none; }     /* no half-cards peeking in */
+    .proj-stage .proj-btn { width: 34px; height: 34px; font-size: 0.85rem; }
+    .proj-stage .proj-prev { left: max(4px, calc(50% - var(--card-w) / 2 - 40px)); }
+    .proj-stage .proj-next { right: max(4px, calc(50% - var(--card-w) / 2 - 40px)); }
+    .proj-info { padding: 0.7rem 0.85rem 0.8rem; }
+    .proj-title { font-size: 1rem; }
+    .proj-title.is-long { font-size: 0.92rem; }
+    .proj-tag { font-size: 0.7rem; }
+    .horizontal { --moon-h: 10svh; }
+
+    /* Milestones: gentler tilt, smaller cards, tab tucked in */
+    .ms-wrap { transform: rotate(-1.5deg); }
+    .page-milestones::before { transform: translateY(-50%) rotate(1.5deg); }
+    .ms-track { --h: clamp(220px, 34svh, 270px); gap: 12px; }
+    .ms-card { width: calc(var(--h) * 0.78); border-radius: 16px; box-shadow: 4px 4px 0 #1b1638; }
+    .ms-edu { width: calc(var(--h) * 0.9); }
+    .ms-cert { width: calc(var(--h) * 0.8); }
+    .ms-info { padding: 0.55rem 0.7rem; }
+    .ms-name { font-size: 0.9rem; }
+    .ms-sub { font-size: 0.72rem; }
+    .ms-chip { font-size: 0.66rem; }
+    .ms-tag { font-size: 0.65rem; left: 0.5rem; top: 0.5rem; }
+    .ms-tab { left: 5vw; padding: 0.25rem 0.7rem 0.3rem; }
+    .ms-tab-title { font-size: 1rem; }
+    .ms-tab-sub { font-size: 0.58rem; }
+}
+/* very narrow phones (Galaxy Fold folded, ~280px) */
+@media (max-width: 359.98px) {
+    .title { font-size: 2rem; }
+    .content1 { font-size: 1.05rem; }
+    .proj-stage .proj-btn { width: 30px; height: 30px; }
+    .proj-stage .proj-prev { left: 2px; }
+    .proj-stage .proj-next { right: 2px; }
+    .proj-filter-btn { font-size: 0.78rem; padding: 0.25rem 0.7rem; }
+    .exp-bubble { font-size: 0.8rem; max-width: 150px; }
+    .ms-track { --h: 210px; }
+    .ms-tab-sub { display: none; }
+}
+
+@media (max-width: 575.98px) {
+    .sh-text { white-space: nowrap; font-size: 0.62rem; letter-spacing: 0.1em; }
+    .page3 .exp-head .title, .page4 .exp-head .title, .skills-title { max-width: calc(100vw - 110px); margin-inline: auto; }
+}
+@media (max-width: 359.98px) {
+    .page3 .exp-head .title, .page4 .exp-head .title { font-size: 1.7rem; }
+    .skills-title { font-size: 1.7rem; }
+}
+
+/* ================= Experience: no scrollbar, arrows when it doesn't fit ================= */
+.exp-orbit { scrollbar-width: none; -ms-overflow-style: none; }
+.exp-orbit::-webkit-scrollbar { display: none; }
+.exp-body { position: relative; }
+.exp-scroll-btns { display: none; }
+.exp-scroll-btns.show {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 6;
+}
+.exp-sbtn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: #fff; color: #1b1638;
+    border: 3px solid #1b1638;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.45);
+    font-size: 0.8rem; line-height: 1;
+    cursor: pointer;
+    transition: opacity .2s, transform .2s;
+}
+.exp-sbtn:hover { background: #f1c40f; }
+.exp-sbtn:disabled { opacity: 0.3; cursor: default; }
+@media (orientation: portrait) and (max-width: 991.98px) {
+    .exp-scroll-btns.show { top: auto; bottom: 0.4rem; transform: none; }
+}
+
+/* ================= Home + CV on phones: moon and earth sized by height too ================= */
+@media (orientation: portrait) and (max-width: 575.98px) {
+    .page1 .astronaut-moon, .page7 .astronaut-moon { width: min(70vw, 36svh); height: auto; max-width: none; top: 7%; }
+    .page1 .earth, .page7 .earth7 { width: min(125vw, 66svh); min-width: 0; height: auto; bottom: calc(min(125vw, 66svh) * -0.62); }
+    .page1 .message { top: calc(7% + min(70vw, 36svh) * 0.97 + 1.5rem); }
+    .page7 .message7 { top: calc(7% + min(70vw, 36svh) * 0.97 + 1.2rem); }
+}
+@media (orientation: portrait) and (max-width: 575.98px) {
+    .page1 .message, .page7 .message7 { transform: translate(-50%, 0); padding-top: 0; padding-bottom: 0; }
+}
+/* narrow phones turned sideways (short AND under 700px wide) */
+@media (orientation: landscape) and (max-height: 575.98px) and (max-width: 699.98px) {
+    .page1 .astronaut-moon, .page7 .astronaut-moon { width: auto; height: 44svh; top: 24%; left: 2%; }
+    .page1 .message, .page7 .message7 { left: 64%; }
+    .page1 .title, .page7 .title { font-size: 1.55rem; }
+    .content1 { font-size: 0.95rem; }
+}
+/* phones sideways: Experience planets stay in one row instead of wrapping */
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .exp-stops { flex-wrap: nowrap; gap: 0.5rem; justify-content: space-between; }
+    .exp-stop { width: auto; flex: 1 1 0; min-width: 0; }
+    .exp-stops > li { flex: 1 1 0; min-width: 0; }
+    .exp-stop .exp-text { width: 100%; }
+    .exp-role { font-size: clamp(0.82rem, 2.2vw, 1.05rem); }
+    .exp-org, .exp-when { font-size: clamp(0.66rem, 1.6vw, 0.82rem); }
+    .exp-guide .astronaut-laptop { max-width: 20vw; }
+    .exp-body { gap: 0.8rem; }
+}
+@media (max-width: 359.98px) {
+    .page3 .exp-head .title, .page4 .exp-head .title, .skills-title { font-size: 1.45rem; }
+}
+
+/* ================= Milestones: filter + side arrows ================= */
+.ms-filter {
+    position: absolute;
+    right: calc(5vw + clamp(0.8rem, 3vw, 2.5rem));
+    top: 0;
+    transform: translateY(-58%) rotate(-1deg);
+    z-index: 4;
+    display: flex;
+    gap: 0.3rem;
+    padding: 0.25rem;
+    background: #1b1638;
+    border-radius: 999px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+.ms-filter button {
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+    font-size: clamp(0.72rem, 0.66rem + 0.2vw, 0.86rem);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+.ms-filter button.on { background: #FEDC1F; color: #1b1638; }
+.ms-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    transform: translateY(-50%);
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: #fff; color: #1b1638;
+    border: 3px solid #1b1638;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.45);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform .2s, background .2s;
+}
+.ms-arrow:hover { background: #FEDC1F; transform: translateY(-50%) scale(1.08); }
+.ms-prev { left: calc(5vw + 10px); }
+.ms-next { right: calc(5vw + 10px); }
+@media (max-width: 575.98px) {
+    .ms-arrow { width: 34px; height: 34px; font-size: 0.8rem; }
+    .ms-prev { left: calc(5vw + 4px); } .ms-next { right: calc(5vw + 4px); }
+    .ms-filter { right: 5vw; } .ms-filter button { padding: 0.25rem 0.6rem; font-size: 0.68rem; }
+    .ms-tab { transform: translateY(-62%) rotate(-1deg) scale(0.92); transform-origin: left center; }
+}
+@media (max-width: 459.98px) {      /* tab and filter don't fit side by side: tab on the left, filter under the band's top edge on the right */
+    .ms-tab-sub { display: none; }
+}
+
+/* ================= Projects: a more compact card ================= */
+.proj-stage { --card-w: clamp(230px, 20vw, 290px); --card-h: clamp(290px, 46svh, 390px); --step: calc(var(--card-w) * 0.4); }
+@media (orientation: portrait) and (min-width: 576px) and (max-width: 991.98px) { .proj-stage { --card-w: min(46vw, 330px); --card-h: clamp(300px, 40svh, 420px); } }
+@media (max-width: 575.98px) { .proj-stage { --card-w: min(62vw, 270px); --card-h: clamp(260px, 42svh, 360px); } }
+@media (max-width: 359.98px) { .proj-stage { --card-w: 66vw; --card-h: clamp(240px, 42svh, 320px); } }
+
+/* ================= Experience: list centred on upright screens ================= */
+@media (orientation: portrait) and (max-width: 991.98px) {
+    .exp-orbit { margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
+    .exp-stops { width: fit-content; max-width: 100%; margin-inline: auto; }
+    .exp-stop { width: auto; }
+    .exp-guide { justify-content: center; }
+}
+@media (max-width: 459.98px) {
+    .ms-filter { top: auto; bottom: 0; right: 50%; transform: translate(50%, 55%) rotate(-1deg); }
+    .ms-wrap { padding-bottom: 1.6rem; }
+}
+
+/* moon perched on the top-right corner of the project card (small screens) */
+
+/* ================= Projects arrangement (laptops & desktops) ================= */
+@media (min-width: 992px) {
+    /* card grows with the screen; neighbours peek out more so it reads as a carousel */
+    .proj-stage {
+        --card-w: clamp(270px, 12vw + 150px, 380px);
+        --card-h: min(calc(var(--card-w) * 1.28), 58svh);
+        --step: calc(var(--card-w) * 0.62);
+    }
+    .proj-title { font-size: clamp(1.15rem, 0.9rem + 0.4vw, 1.45rem); }
+    .proj-info { padding: 1rem 1.2rem 1.1rem; }
+    /* title a step smaller than before, so the card leads */
+    .page4 .exp-head .title { font-size: clamp(2rem, 1rem + 2.4vw, 3.6rem); }
+    /* astronauts frame the content area (max 1300px), not the window edges */
+    .horizontal { --frame: max(2.5vw, calc((100vw - 1300px) / 2)); --moon-h: clamp(150px, 24svh, 240px); }
+    .page4 .proj-boat { left: calc(100vw + var(--frame)); bottom: 6vh; height: calc(var(--moon-h) * 0.92); }
+    .page4 .proj-moon { right: var(--frame); bottom: 6vh; height: var(--moon-h); }
+}
+
+/* parked moon back in the bottom-right corner on every screen (no perch) */
+.proj-moon { z-index: 3; transform-origin: 50% 100%; }
+@media (max-width: 575.98px) { .page4 .proj-moon { right: 2vw; bottom: 1.5vh; height: 12svh; max-height: 110px; } }
+/* logos always centred in their tiles */
+.ms-logo-tile { display: flex; align-items: center; justify-content: center; }
+.ms-art .ms-logo-tile img.ms-logo { margin: auto; display: block; }
+.ms-art .ms-logo-tile { padding: 10px 14px; }
+.ms-art .ms-logo-tile img.ms-logo { max-width: 100% !important; max-height: 100% !important; }
+
+/* ================= Black hole swallows the page ================= */
+.main { transition: transform 0.6s ease, filter 0.6s ease, opacity 0.6s ease; }
+body.bh-swallow .main {
+    transform: scale(0.02) rotate(160deg);
+    filter: blur(6px) brightness(0.6);
+    opacity: 0;
+    transition: transform 1.1s cubic-bezier(.6,0,.9,.4), filter 1.1s ease-in, opacity 1s ease-in 0.15s;
+}
+@media (prefers-reduced-motion: reduce) { body.bh-swallow .main { transform: none; filter: none; opacity: 1; } }
+
+/* phones: the flying moon replaces the corner moon */
+
+/* About on small screens: smaller text, smaller and lower moon */
+@media (orientation: portrait) and (max-width: 575.98px) {
+    .page2 .content { font-size: clamp(0.82rem, 3.4vw, 0.95rem); line-height: 1.55; }
+    .page2 .title { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+    .page2 .message { padding: 1rem 1.3rem; gap: 0.6rem; }
+    .page2 .black-moon { width: 82vw; height: auto; bottom: -46vw; }
+}
+@media (orientation: portrait) and (max-width: 359.98px) { .page2 .black-moon { bottom: -58vw; } }
+
+/* ================= Low-power devices: drop the expensive blur effects ================= */
+html.low-power *, html.low-power *::before, html.low-power *::after { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+html.low-power .proj-card { filter: none !important; }
+html.low-power .exp-planet, html.low-power .ms-art svg, html.low-power .proj-art.is-planet svg { filter: none !important; }
+html.low-power .exp-asteroids::before { filter: none; }
+html.low-power body.bh-swallow .main { filter: none; }
+@media (orientation: portrait) and (max-width: 575.98px) and (max-height: 700px) { .page2 .black-moon { bottom: -64vw; } }
+
+/* ===== Straight Milestones band (the purple ribbon behind keeps its tilt) ===== */
+.page-milestones::before {               /* purple ribbon, same height as the yellow band, tilted so its corners peek out */
+    height: calc(100% - 2 * clamp(2.4rem, 7vh, 4rem));
+    transform: translateY(-50%) rotate(-2deg);
+}
+@media (max-width: 991.98px) { .page-milestones::before { transform: translateY(-50%) rotate(-3deg); } }
+@media (max-width: 575.98px) { .page-milestones::before { transform: translateY(-50%) rotate(-4deg); } }
+.ms-wrap { transform: none; }
+.ms-tab { transform: translateY(-62%); }
+.ms-filter { transform: translateY(-58%); }
+@media (max-width: 575.98px) {
+    .ms-wrap { transform: none; }
+    .ms-tab { transform: translateY(-62%) scale(0.92); }
+}
+@media (max-width: 459.98px) {
+    .ms-filter { transform: translate(50%, 55%); }
+}
+
+/* ================= CV: "Let's connect" round the earth ================= */
+.earth-ring {
+    position: absolute;
+    /* painted after the earth, before the button and icons; never catches clicks */
+    pointer-events: none;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+}
+.earth-ring svg { display: block; width: 100%; height: 100%; overflow: visible; animation: ring-spin 60s linear infinite; }
+.earth-ring text {
+    font-family: "Nunito", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 7px;
+    letter-spacing: 0.02em;
+    fill: #fbf3df;
+    paint-order: stroke;
+    stroke: #1b1638;
+    stroke-width: 2px;
+    stroke-linejoin: round;
+}
+@keyframes ring-spin { to { transform: rotate(-360deg); } }
+@media (prefers-reduced-motion: reduce) { .earth-ring svg { animation: none; } }
 
