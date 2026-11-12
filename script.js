@@ -763,9 +763,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // Moon astronaut: also sails out from behind the carousel, into the bottom-right corner
     const moonP = document.querySelector('.proj-moon');
-    const mPh = () => window.innerWidth < 576;
+    const mPh = () => window.matchMedia('(max-width: 575.98px)').matches;   // media query: not fooled by a wider layout while loading
     const moonToCarousel = () => {
-        if (window.innerWidth < 576) return { x: 0, y: 0 };   // small screens: he just sits in his corner
+        if (mPh()) return { x: 0, y: 0 };   // phones: he doesn't sail out from behind the cards
         const w = moonP.offsetWidth, h = moonP.offsetHeight;
         const restX = moonP.offsetLeft - window.innerWidth + w / 2;
         const restY = moonP.offsetTop + h / 2;
@@ -904,7 +904,7 @@ gsap.fromTo('.astronaut-star',
             trigger: '.horizontal-wrapper',
             start: () => 'top+=' + Math.round(HOLD() * 0.5 + hDist() * 0.08) + ' top',
             // on phones he finishes rising before Projects settles, so he never sits beside the card
-            end: () => '+=' + Math.round(window.innerWidth < 576 ? HOLD() * 0.5 + hDist() * 0.8 : HOLD() * 1.3 + hDist() * 0.92 + window.innerHeight * 0.7),
+            end: () => '+=' + Math.round(window.matchMedia('(max-width: 575.98px)').matches ? HOLD() * 0.5 + hDist() * 0.8 : HOLD() * 1.3 + hDist() * 0.92 + window.innerHeight * 0.7),
             scrub: 2.5,
             invalidateOnRefresh: true
         }
@@ -928,6 +928,51 @@ gsap.from(".social-links .social-icon", {
 
 
  
+/*PROJECTS on phones: as the Projects page arrives (while the star astronaut rises away), the moon
+  astronaut drifts slowly along the bottom of the card, from its left corner to its right corner,
+  and stays perched there. On bigger screens it keeps its usual spot.*/
+(function perchMoon() {
+    const moon = document.querySelector('.page4 .proj-moon');
+    const page = document.querySelector('.page4');
+    const track = document.querySelector('.proj-track');
+    if (!moon || !page || !track) return;
+    const phone = () => window.matchMedia('(max-width: 575.98px)').matches;
+    let from = 0, to = 0, top = 0, shown = null;
+    const measure = () => {
+        if (!phone()) { moon.style.left = moon.style.top = ''; page.style.removeProperty('--perch-w'); shown = null; return; }
+        const box = moon.offsetParent || page;                     // what left/top are measured from
+        const pr = box.getBoundingClientRect(), tr = track.getBoundingClientRect(), pg = page.getBoundingClientRect();
+        if (!tr.width) return;
+        const w = Math.round(Math.min(window.innerWidth * 0.36, 150));
+        page.style.setProperty('--perch-w', w + 'px');
+        const h = moon.offsetHeight || w;
+        const minL = pg.left - pr.left + 4, maxL = pg.right - pr.left - w - 4;      // stay on screen
+        from = Math.max(minL, tr.left - pr.left - w * 0.45);                         // card's bottom-left corner
+        to = Math.min(maxL, tr.right - pr.left - w * 0.32);                          // card's bottom-right corner
+        top = Math.round(tr.bottom - pr.top - h * 0.5);
+        moon.style.top = top + 'px';
+    };
+    // how far through its walk the moon should be, from the sideways scroll
+    const target = () => {
+        const st = ScrollTrigger.getById('hscroll');
+        if (!st) return 1;
+        const px = window.scrollY - st.start, beginAt = HOLD() + hDist() * 0.45, endAt = st.end - st.start;
+        return Math.min(1, Math.max(0, (px - beginAt) / Math.max(1, endAt - beginAt)));
+    };
+    gsap.ticker.add(() => {
+        if (!phone()) return;
+        const t = target();
+        shown = shown === null ? t : shown + (t - shown) * 0.06;    // eases towards the target: slow and smooth
+        const e = shown < 0.5 ? 2 * shown * shown : 1 - Math.pow(-2 * shown + 2, 2) / 2;
+        moon.style.left = Math.round(from + (to - from) * e) + 'px';
+    });
+    measure();
+    window.addEventListener('resize', measure);
+    ScrollTrigger.addEventListener('refresh', measure);
+    if (window.ResizeObserver) new ResizeObserver(measure).observe(track);
+    moon.addEventListener('load', measure);
+})();
+
 /*ABOUT: title + paragraph centred in the open sky between the star garland and the moon*/
 (function centreAbout() {
     const page = document.querySelector('.page2');

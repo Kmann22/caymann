@@ -2671,14 +2671,12 @@ html, body { background: #01070f; }
 .proj-tag { flex: none; white-space: nowrap; }
 .proj-open { margin-top: 0.15rem; }
 
-/* Experience/Projects: the pinned section always covers the whole screen, even when a phone's
-   address bar hides and the screen grows taller, so nothing from below can show while it slides */
-.horizontal-wrapper {
-    height: 100vh;
-    height: 100lvh;
-    background: url('assets/images/background.webp') center bottom / cover;
-}
+/* Mid-page screens (About, Experience, Projects, Skills) are sized to the FULL phone screen
+   (address bar hidden, which is how it is while you scroll down), so each page fills the screen
+   exactly: the asteroid belt sits on the bottom edge and nothing from below can show. */
+.horizontal-wrapper { height: 100vh; height: 100lvh; }
 .horizontal { align-items: flex-start; }
+.page3, .page4, .page2, .page-skills { height: 100vh; height: 100lvh; min-height: 0; }
 
 /* Milestones on phones: a slimmer band with smaller cards */
 @media (max-width: 575.98px) {
@@ -2702,3 +2700,12 @@ html, body { background: #01070f; }
 .ms-name { -webkit-line-clamp: 3; }          /* full title is always in the pop-up */
 @media (max-width: 575.98px), (max-height: 700px) { .ms-name { -webkit-line-clamp: 2; } }
 .ms-chip { max-width: 100%; }
+
+/* no glow on the social icons on phones held upright */
+@media (orientation: portrait) and (max-width: 767.98px) {
+    .social-icon img, .page7 .social-icon img, .social-icon img:hover { filter: none !important; }
+}
+/* phones: the moon astronaut sits bigger, perched on the card's bottom-right corner (script.js places it) */
+@media (max-width: 575.98px) {
+    .page4 .proj-moon { z-index: 7; height: auto; max-height: none; width: var(--perch-w, 34vw); right: auto; bottom: auto; }
+}
