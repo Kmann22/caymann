@@ -2701,11 +2701,54 @@ html, body { background: #01070f; }
 @media (max-width: 575.98px), (max-height: 700px) { .ms-name { -webkit-line-clamp: 2; } }
 .ms-chip { max-width: 100%; }
 
-/* no glow on the social icons on phones held upright */
-@media (orientation: portrait) and (max-width: 767.98px) {
+/* no glow on the social icons on phones turned sideways (upright phones and laptops keep it) */
+@media (orientation: landscape) and (max-height: 575.98px) {
     .social-icon img, .page7 .social-icon img, .social-icon img:hover { filter: none !important; }
 }
 /* phones: the moon astronaut sits bigger, perched on the card's bottom-right corner (script.js places it) */
-@media (max-width: 575.98px) {
+@media (max-width: 575.98px) and (orientation: portrait) {
     .page4 .proj-moon { z-index: 7; height: auto; max-height: none; width: var(--perch-w, 34vw); right: auto; bottom: auto; }
+}
+
+/* =====================================================================
+   PHONES TURNED SIDEWAYS (landscape, short screens). Only this layout is affected.
+   ===================================================================== */
+@media (orientation: landscape) and (max-height: 575.98px) {
+    /* About: garland, title and text all fit between the stars and the moon */
+    .star-garland { height: 15svh; }
+    .page2 .title { font-size: clamp(1.5rem, 8svh, 2.3rem); }
+    .page2 .content { font-size: clamp(0.72rem, 3.7svh, 0.98rem); line-height: 1.5; }
+    .page2 .message { padding: 0.4rem 1.5rem; gap: 0.3rem; max-width: min(88vw, 820px); }
+
+    /* Projects: title fully on screen, card sized to the height */
+    .page4 .exp-head .title { font-size: clamp(1.4rem, 8svh, 2.2rem); }
+    .page4 .exp-head { padding-top: 0.6rem; }
+    .proj-stage { --card-w: clamp(190px, 27vw, 250px); }
+
+    /* Milestones: keep the filter clear of the menu button */
+    .ms-filter { right: calc(5vw + 56px); }
+
+    /* CV: smaller title so it sits between the moon and the earth (script.js centres it) */
+    .page7 .title { font-size: clamp(1.4rem, 9svh, 2.4rem); }
+    .page7 .cv-btn { font-size: 0.9rem !important; padding: 0.4rem 1rem; }
+
+    /* pop-ups: a shorter picture so the words show straight away */
+    .proj-banner { max-height: 34svh; }
+
+    /* menu: every link fits on the screen */
+    .nav-links a { font-size: clamp(16px, 6.5svh, 24px); margin: clamp(4px, 2.2svh, 14px) 0; }
+
+    /* music prompt: compact */
+    .music-toast { top: 0.6rem; padding: 0.4rem 0.7rem 0.4rem 0.9rem; gap: 0.4rem 0.7rem; font-size: 0.85rem; }
+}
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .ms-chip { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }      /* one line each, so nothing is cut off */
+    .page4 .proj-moon { height: 32svh; max-height: none; right: 3vw; bottom: 4svh; }  /* same size on every sideways phone */
+}
+@media (orientation: landscape) and (max-height: 340px) {
+    .nav-links a, #audioIcon { font-size: 15px; margin: 3px 0; }
+}
+@media (orientation: landscape) and (max-height: 575.98px) {
+    .ms-chips { flex-wrap: nowrap; overflow: hidden; }
+    .ms-chip { flex: 0 1 auto; min-width: 0; }
 }

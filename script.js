@@ -936,7 +936,7 @@ gsap.from(".social-links .social-icon", {
     const page = document.querySelector('.page4');
     const track = document.querySelector('.proj-track');
     if (!moon || !page || !track) return;
-    const phone = () => window.matchMedia('(max-width: 575.98px)').matches;
+    const phone = () => window.matchMedia('(max-width: 575.98px) and (orientation: portrait)').matches;
     let from = 0, to = 0, top = 0, shown = null;
     const measure = () => {
         if (!phone()) { moon.style.left = moon.style.top = ''; page.style.removeProperty('--perch-w'); shown = null; return; }
@@ -1004,10 +1004,24 @@ gsap.from(".social-links .social-icon", {
     const place = () => {
         const w = earth.offsetWidth, h = earth.offsetHeight;   // layout size: unaffected by the spin
         if (!w) return;
-        ring.style.width = Math.round(Math.max(w, h) * 1.17) + 'px';
-        ring.style.left = Math.round(earth.offsetLeft + w / 2) + 'px';
-        ring.style.top = Math.round(earth.offsetTop + h / 2) + 'px';
+        const R = Math.round(Math.max(w, h) * 1.17);
+        const cx = Math.round(earth.offsetLeft + w / 2), cy = Math.round(earth.offsetTop + h / 2);
+        ring.style.width = R + 'px';
+        ring.style.left = cx + 'px';
+        ring.style.top = cy + 'px';
+        centreCv(cx, cy, R / 2);
     };
+    // phone on its side: title + button sit in the gap between the moon and the ring's lettering
+    const msg = document.querySelector('.page7 .message7'), moon = document.querySelector('.page7 .astronaut-moon');
+    function centreCv(cx, cy, r) {
+        if (!msg) return;
+        if (!window.matchMedia('(orientation: landscape) and (max-height: 575.98px)').matches || !moon) { msg.style.left = ''; return; }
+        const y = msg.offsetTop;                                            // its vertical centre (translate -50%)
+        const dy = Math.min(Math.abs(y - cy), r * 0.98);
+        const ringLeft = cx - Math.sqrt(r * r - dy * dy) - r * 0.08;        // outer edge of the letters
+        const moonRight = moon.offsetLeft + moon.offsetWidth;
+        msg.style.left = Math.round((moonRight + ringLeft) / 2) + 'px';
+    }
     place();
     earth.addEventListener('load', place);
     window.addEventListener('resize', place);
@@ -1385,8 +1399,11 @@ gsap.to('.earth7', {
         if (!cards.length) return;
         cards.forEach(fillTags);
         const info = cards[0].querySelector('.proj-info');
-        const art = Math.round(track.offsetWidth * 0.58);
-        const h = art + Math.max(...cards.map(c => c.querySelector('.proj-info').offsetHeight));
+        const words = Math.max(...cards.map(c => c.querySelector('.proj-info').offsetHeight));
+        let art = Math.round(track.offsetWidth * 0.58);
+        if (window.matchMedia('(orientation: landscape) and (max-height: 575.98px)').matches)
+            art = Math.max(70, Math.min(art, Math.round(window.innerHeight * 0.62) - words));   // phone on its side: fit the height
+        const h = art + words;
         if (info && h > art) stage.style.setProperty('--card-h', h + 'px');
     }
     window.addEventListener('resize', () => { stage.style.removeProperty('--card-h'); fitCards(); });
